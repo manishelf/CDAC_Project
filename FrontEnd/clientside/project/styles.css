@@ -1,0 +1,75 @@
+body{
+    background-color: rgba(	0, 128, 255,0.05);
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+}
+
+.header{
+    background-color: red;
+    display: flex;
+   align-items: center;
+    flex-direction: column;
+}
+.navBar{
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+}
+.navBar > ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display:flex;
+    background-color: aqua;
+}
+.navBar > ul > li, .subBar > li{
+    padding: 1em;
+}
+.subBar{
+    background-color: blueviolet;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display:flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.mainContent{
+    background-color: brown;
+    width: 100%;
+    height: 70vh;
+    padding: 2em;
+    box-sizing: border-box;
+    display: flex;
+   /* justify-content: space-between;*/
+    justify-content: center;
+}
+.main_left, .main_right{
+    padding: 2em;
+    background-color: aqua;
+    width: 40%;
+}
+.footerContent{
+    background-color: darkgreen;
+    width: 100%;
+    padding: 2em;
+    box-sizing: border-box;
+}
+
+.loginWrapper {
+    background-color: aqua;
+    height: fit-content;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+}
+.loginWrapper > button, input{
+    margin: 0.2em;
+    background-color: red;
+    width: 100%;
+}

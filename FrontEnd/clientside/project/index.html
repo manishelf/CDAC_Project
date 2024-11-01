@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="styles.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    function About(){
+      return "About";
+    }
+     function NavBar(){
+         return (
+            <div className="navBar">
+              <ul>
+                <li> NAME
+                </li>
+                <li> Park
+                </li>
+                <li> Find
+                </li>
+                <li> Corporate
+                </li>
+              </ul>
+              <ul>
+                <li> <About />
+                </li>
+                <li> Help
+                </li>
+                <li> Login
+                </li>
+                <li> Signup
+                </li>
+              </ul>
+            </div>
+          ); 
+     }
+
+     function SubBar(){
+       return (
+          <ul className="subBar">
+            <li> Park
+            </li>
+            <li> Near By
+            </li>
+            <li> Reserve a spot
+            </li>
+            <li> Pricing
+            </li>
+            <li> Contact us
+            </li>
+            <li> Feeling lucky?
+            </li>
+          </ul>
+        );
+     }
+
+      function Header(){
+        return <div className="header"> <NavBar /> <SubBar /></div>
+      }
+    function Footer(){
+      return <div className="footerContent">Footer</div>
+      }
+    function MainLeft(){
+      return <div className="main_left">main left</div>
+    }
+    function MainRight(){
+      return <div className="main_right">main Right</div>
+    }
+    function SimpleHeadder(){
+      return (
+        <div>Name</div>
+      );
+    }
+    function LoginWrapper(){
+      return (
+        <div className="loginWrapper">
+          <div>What's your email?</div>
+          <input type="input" placeholder="Enter email"></input>
+          <button>continue</button>
+          <div>By proceeding, you consent to out TOC</div>
+        </div>
+      );
+    }
+    function Main(){
+        return <div className="mainContent"><LoginWrapper /></div>
+    }
+
+      function App() {
+        return ( 
+                <div>
+                  <SimpleHeadder />
+                   <Main />
+                </div> 
+            );
+      }
+
+      const container = document.getElementById('root');
+      const root = ReactDOM.createRoot(container);
+      root.render(<App />);
+      </script>
+  </body>
+</html>
