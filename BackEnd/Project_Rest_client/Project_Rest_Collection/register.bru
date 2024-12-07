@@ -1,0 +1,19 @@
+meta {
+  name: register
+  type: http
+  seq: 3
+}
+
+post {
+  url: https://localhost:4000/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clientName":"parkngo",
+    "email":"asasasaass",
+    "password":"xyzpqr"
+  }
+}

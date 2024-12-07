@@ -1,0 +1,30 @@
+meta {
+  name: send mail
+  type: http
+  seq: 5
+}
+
+post {
+  url: https://localhost:4000/mail
+  body: json
+  auth: none
+}
+
+headers {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImNsaWVudE5hbWUiOiJwYXJrbmdvIiwiZW1haWwiOiJhc2FzYXNhYXNzIiwiaWF0IjoxNzMzNTYxMjQ0fQ.k0g3xXW2S8YHOdiTDE2d2Qh-ZVlGmG8L93hCtUjIhqI
+}
+
+body:json {
+  {
+    "email": "manishpatiasl7058@gmail.com",
+    "password":"xyzabc12",
+    "mail":{
+      "recipients" : "manishpatil7058@gmail.com",
+      "templateName":"template1",
+      "entries" : {
+        "key1":"manya",
+        "key2":"sir"
+      }
+    }
+  }
+}

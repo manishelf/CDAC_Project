@@ -7,35 +7,36 @@ const secrets = require('../secrets/secrets');
 const router = express.Router();
 
 router.post('/',
-    (request, response)=>{
-        const {token, templateTitle, mailTemplate, keys} = request.body;
-        if(token == undefined) response.send(genericUtils.createErrorResponse('Missing Token'));
-        try{
-            const payload = jwt.verify(token, secrets.jwtSignSecret);
-            const clientId = payload['id'];
-            const template = {clientId, templateTitle, mailTemplate, keys};
-
-            dbUtils.insertMailTemplate(template,(error, result)=>{
-                response.send(genericUtils.createResponse(error, 'added template '+ templateTitle));
-            });
-        }catch{
-            response.send(genericUtils.createErrorResponse('Invalid Token'));
-        }
+    async (request, response)=>{
+        const {templateTitle, mailTemplate, keys} = request.body;
+        const clientId = request.payload['id'];
+        const template = {clientId, templateTitle, mailTemplate, keys};
+        dbUtils.insertMailTemplate(template).then(
+            (result)=>{
+                response.send(genericUtils.createSuccessResponse('added template '+ templateTitle));
+            }
+        ).catch(
+            (error)=>{
+                if(String(error['sqlMessage']).includes("for key 'client_templates.client_id"))
+                    response.send(genericUtils.createErrorResponse('template with name exists'));
+                else
+                    response.send(genericUtils.createErrorResponse(error));
+            }
+        );
     }
 );
 
-router.get('/',(request, response)=>{
-    const {token} = request.body;
-        if(token == undefined) response.send(genericUtils.createErrorResponse('Missing Token'));
-        try{
-            const payload = jwt.verify(token, secrets.jwtSignSecret);
-            const clientId = payload['id'];
-            dbUtils.getClientTemplate(clientId,(error, result)=>{
-                response.send(genericUtils.createResponse(error, result));
-            });
-        }catch{
-            response.send(genericUtils.createErrorResponse('Invalid Token'));
+router.get('/',async (request, response)=>{
+    const clientId = request.payload['id'];
+    dbUtils.getClientTemplates(clientId).then(
+        (result)=>{
+            response.send(genericUtils.createSuccessResponse(result));
         }
+    ).catch(
+        (error)=>{
+            response.send(genericUtils.createErrorResponse(error));
+        }
+    );
 });
 
 module.exports = router;
