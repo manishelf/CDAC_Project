@@ -4,7 +4,11 @@
     - send mail
     // noreply.parkngo@gmail.com
     // ParkNGo0.0
-
+    // phone - manish
+## Additional
+	- make asyncronous - pending
+        -- asyncronous by using a callback url
+	- implement mailing queue - pending
 
 -- register
     1. get
@@ -20,12 +24,25 @@
 -- send mail
     1. post 
         email recipient token templateName values
-    // 2. add queue no need as node js is asyncronous
-
--- get all sent mails
+    // 2. add queue 
 
 -- get mails log
     //done
 
 -- get all templates
     // done
+
+
+--- to do 
+    - clean up 
+    - encrypt the jwt
+    - test 
+	//done 
+    - write unit test
+        - template
+        - register
+        - mail
+		-- pending
+
+Consider using a message queue for email sending
+Implement caching for mail templates

@@ -2,7 +2,6 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const genericUtils = require('./utils/genericUtils');
-const secrets = require('./secrets/secrets');
 const configs = require('./configs');
 
 const registrationRouter = require('./routes/registerRouter');
@@ -18,9 +17,9 @@ app.use(cors());
 
 app.use(genericUtils.jwtAuthMiddleware);
 
-app.use('/register', registrationRouter);
-app.use('/template', templateRouter);
-app.use('/mail', mailRouter);
+app.use('/api/v1/register', registrationRouter);
+app.use('/api/v1/template', templateRouter);
+app.use('/api/v1/mail', mailRouter);
 
 
 

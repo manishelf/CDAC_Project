@@ -4,17 +4,8 @@ const utils = require('./genericUtils');
 const moment = require('moment');
 const { response } = require('express');
 
-const {host, port, user, password, database} = configs.db;
 
-const dbConfigs = {
-    host,
-    port,
-    user,
-    password,
-    database,
-}
-
-const pool = mysql.createPool(dbConfigs);
+const pool = mysql.createPool(configs.db);
 
 /* DDL Query
 CREATE TABLE clients (
@@ -31,13 +22,14 @@ const insertClient = async function (client){
     `;
     return new Promise((resolve, reject)=>{
         pool.execute(
-        insertUserQuery,
-        [clientName, email, cypherPassword],
-        (error, result)=>{
-            if(error) reject(error);
-            if(result) resolve(result);
-        }
-    )});
+            insertUserQuery,
+            [clientName, email, cypherPassword],
+            (error, result)=>{
+                if(error) reject(error);
+                if(result) resolve(result);
+            }
+        )
+    });
 }
 
 const emailExistsInDb = async function(email){
@@ -74,20 +66,21 @@ const emailExistsInDb = async function(email){
     body TEXT,
     footer VARCHAR(255),
     template_keys TEXT,
+    callback varchar(100),
     FOREIGN KEY (client_id) REFERENCES clients(id),
     UNIQUE (client_id, template_title)
     );
     */
 
 const insertMailTemplate = async function(template){
-    const {clientId,templateTitle, mailTemplate, keys} = template;
+    const {clientId,templateTitle, mailTemplate, keys, callback} = template;
     const templateInsertStatement = `
         INSERT INTO client_templates(
         client_id, template_title,
-        subject,headder,body,footer,
-        template_keys
+        subject,header,body,footer,
+        template_keys, callback
         )
-        VALUES (?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?)
     `;
     return new Promise(
         (resolve, reject)=>{
@@ -98,7 +91,9 @@ const insertMailTemplate = async function(template){
                     mailTemplate.headder,
                     mailTemplate.body,
                     mailTemplate.footer,
-                    keys],
+                    keys,
+                    callback
+                ],
                 (error, result)=>{
                     if(error) reject(error);
                     else resolve(result);
@@ -110,7 +105,7 @@ const insertMailTemplate = async function(template){
 
 const getClientTemplates = async function(clientId){
     const templateInsertStatement = `
-        select template_title, subject, headder, body, footer, template_keys
+        select template_title, subject, header, body, footer, template_keys
         from client_templates where client_id = ?
     `;
     return new  Promise(
@@ -129,7 +124,7 @@ const getClientTemplates = async function(clientId){
 
 const getMailTemplateByName = async function (clientId, templateName) {
     const selectTemplateQuery = `
-        SELECT  subject, headder, body, footer, template_keys FROM client_templates WHERE client_id = ? AND template_title = ?
+        SELECT  subject, header, body, footer, template_keys, callback FROM client_templates WHERE client_id = ? AND template_title = ?
     `;
     return new Promise((resolve, reject)=>{
         pool.query(
@@ -165,9 +160,9 @@ const createMailLog = async function(clientId, result){
         type: "email-status",
         logLevel:"INFO",
         clientId,
-        acceptedRecipients: result['accepted'],
-        rejectedRecipients: result['rejected'],
-        messageId: result['messageId'],
+        acceptedRecipients: result.result['accepted'],
+        rejectedRecipients: result.result['rejected'],
+        messageId: result.result['messageId'],
         timeStamp: moment().format(),
         smtpResponse : result
     }
