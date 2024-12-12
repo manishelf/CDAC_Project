@@ -36,7 +36,7 @@ router.get('/',async (request, response)=>{
         }
     ).catch(
         (error)=>{
-            response.stautus(500).send(genericUtils.createErrorResponse('internal server error'));
+            response.status(500).send(genericUtils.createErrorResponse('internal server error'));
         }
     );
 });

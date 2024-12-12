@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const dbUtils = require('../utils/dbUtils');
 const utils = require('../utils/genericUtils');
 
@@ -11,7 +10,8 @@ router.post('/',
         const {clientName , email, password}= request.body;
         if(clientName.length===0||email.length===0||password===0) return response.status(400).send('clientName and email and password cannot be empty');
 
-        const cypherPassword = await bcrypt.hash(password, 10);
+        const cypherPassword = utils.hashPassword(password);
+
         const client = {clientName, email, cypherPassword};
 
         dbUtils.insertClient(client)
@@ -28,7 +28,6 @@ router.post('/',
             }
         ).catch(
             (error)=>{
-                console.log(error)
                 if(error['code']==='ER_DUP_ENTRY')
                     response.status(409).send(utils.createErrorResponse('email already in use'));
                 else response.status(500).send(utils.createErrorResponse('internal server error'));

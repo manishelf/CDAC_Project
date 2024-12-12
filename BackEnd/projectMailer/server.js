@@ -36,7 +36,7 @@ https.createServer(options, app)
             console.clear();
             console.log('mailer for ParkNgo');
             console.log('started mailer web service');
-            console.log('https://localhost:'+configs.server.port);
+            console.log('https://localhost:'+configs.server.port+'/api/v1/');
         }
     )   
 

@@ -15,6 +15,12 @@ function createResponse(error, success){
     else return createSuccessResponse(success)
 }
 
+function hashPassword(password){
+    const salt = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
+    return `${salt}:${hash}`;
+}
+
 function createToken(payload, options={}){
     let token = jwt.sign(payload, secrets.jwtSignSecret,options);
     return encryptToken(token);
@@ -47,7 +53,7 @@ function decryptToken(encryptedToken){
 }
 
 const jwtAuthMiddleware = async (request, response, next) => {
-    if(request.url === '/register') next()
+    if(request.url === '/api/v1/register') next()
     else{
         const {token} = request.headers;
         if(token === undefined) response.send(createErrorResponse('missing token'));
@@ -68,6 +74,7 @@ module.exports = {
     createResponse,
     createErrorResponse,
     createSuccessResponse,
+    hashPassword,
     createToken,
     jwtAuthMiddleware,
 }
