@@ -14,9 +14,7 @@ const transporter = mailer.createTransport(
             user: secrets.mail.user,
             pass: secrets.mail.pass
         },
-        pool: true,
-        maxConnections: 10,
-        rateLimit: true
+        pool: true
     }
 );
 
