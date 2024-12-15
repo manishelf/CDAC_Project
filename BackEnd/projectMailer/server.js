@@ -21,7 +21,9 @@ app.use('/api/v1/register', registrationRouter);
 app.use('/api/v1/template', templateRouter);
 app.use('/api/v1/mail', mailRouter);
 
-
+app.route('/api',(request, response)=>{
+    response.send({version:'v1', status:'UP'});
+});
 
 const options = {
     key : fs.readFileSync('./secrets/server.key'),

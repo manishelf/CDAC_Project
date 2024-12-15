@@ -122,24 +122,35 @@ const getClientTemplates = async function(clientId){
     );
 }
 
+const TemplateCacheList = new Map();
+
 const getMailTemplateByName = async function (clientId, templateName) {
     const selectTemplateQuery = `
         SELECT  subject, header, body, footer, template_keys, callback FROM client_templates WHERE client_id = ? AND template_title = ?
     `;
-    return new Promise((resolve, reject)=>{
-        pool.query(
-            selectTemplateQuery,
-            [clientId, templateName],
-            (error, result)=>{
-                if(error) reject(error);
-                else{
-                    if(result.length == 0)
-                        reject('no template found');
-                    else resolve(result[0]);
+    const cache = TemplateCacheList.get(templateName);
+    if(cache) {
+        return new Promise((resolve,reject)=>{resolve(cache)});
+    }
+    else {
+        return new Promise((resolve, reject)=>{
+            pool.query(
+                selectTemplateQuery,
+                [clientId, templateName],
+                (error, result)=>{
+                    if(error) reject(error);
+                    else{
+                        if(result.length == 0)
+                            reject('no template found');
+                        else{
+                            TemplateCacheList.set(templateName, result[0]);
+                            resolve(result[0]);
+                        }
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+    }
 }
 
 /*

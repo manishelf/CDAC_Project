@@ -45,4 +45,6 @@
 		-- pending
 
 Consider using a message queue for email sending
+    -- can be done using bull but not necessary
 Implement caching for mail templates
+    -- done
