@@ -1,4 +1,5 @@
 import QRCode from 'react-qr-code'
+import GenericLightContainer from './GenericLightContainer';
 export default function PaymentRecipt(props){
 
     // const {
@@ -21,12 +22,12 @@ export default function PaymentRecipt(props){
     const greetings = `have a nice day!`
 
     return (
-        <div className="container mt-5 py-4 text-center 
-                        border bg-light border-1 border-success 
+        <GenericLightContainer className="container mt-5 py-4 text-center 
+                        border bg-lightborder-success 
                         rounded shadow-sm"
              id="paymentRecipt"
              >
-            <h1 className="display-4 border-top pb-3">
+            <h1 className="display-4 border-top pb-3" style={{fontWeight:"500"}}>
                 Parking Ticket
             </h1>
             <div className="d-flex justify-content-center py-3">
@@ -55,9 +56,9 @@ export default function PaymentRecipt(props){
             </div>
             <div className="border-bottom py-4">
                 <span className="text-success" style={{fontSize:"3em"}}>Paid : ₹ {amountPaid}</span>
-                <span className="text-body-emphasis d-block py-2" style={{fontSize:"1.1em"}}>TXN ID : {txnId}</span>
+                <span className="text-body-emphasis d-block py-2" style={{fontSize:"1.1em"}}>Booking-ID : {txnId}</span>
             </div>
             <span className="text-body-primary d-block mt-3">Thankyou and {greetings}</span>
-        </div>
+        </GenericLightContainer>
     )
 }
