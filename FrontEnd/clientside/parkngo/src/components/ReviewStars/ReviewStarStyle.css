@@ -1,0 +1,20 @@
+  .star-item {
+    cursor: pointer;
+    opacity: 0.3;
+    transition: 1ms;
+  }
+  
+  .star-item-active{
+    cursor: pointer;
+    transition: 1s;
+    opacity: 1 !important;
+  }
+
+  .star-item-active:hover {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  
+  .star-radio {
+    display: none;
+  }

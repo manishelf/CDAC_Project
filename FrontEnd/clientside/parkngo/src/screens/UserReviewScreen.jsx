@@ -1,3 +1,4 @@
+import ReviewStars from '../components/ReviewStars/ReviewStars';
 import GenericLightContainer from './../components/GenericLightContainer';
 
 export default function UserReviewScreen(){
@@ -10,13 +11,14 @@ export default function UserReviewScreen(){
             <div className="row my-5 border border-primary rounded mx-5 py-3">
                 <h5 className="text-primary">How was your overall Experience?</h5>
                 <div className="col-4"></div>
-                <div className="d-flex justify-content-around col">
+                {/* <div className="d-flex justify-content-around col">
                     <input type="radio" name="overall" id="" />
                     <input type="radio" name="overall" id="" />
                     <input type="radio" name="overall" id="" />
                     <input type="radio" name="overall" id="" />
                     <input type="radio" name="overall" id="" />
-                </div>
+                </div> */}
+                <ReviewStars no="5"/>
                 <div className="col-4"></div>
             </div>
 
