@@ -32,7 +32,6 @@ async function handleCallbackToClient(clientId, callbackURL, result){
     }catch(exception){
         dbUtils.createMailLog(clientId, {result, calbackResult:exception});
     }
-    
 }
 
 router.post('/',
@@ -75,7 +74,6 @@ router.post('/',
                 html
             }
         );
-
         handleCallbackToClient(clientId, mail['callback'], result);
     }
 );
