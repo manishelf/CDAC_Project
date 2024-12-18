@@ -27,9 +27,20 @@ app.use('/api/v1/register', registrationRouter);
 app.use('/api/v1/template', templateRouter);
 app.use('/api/v1/mail', mailRouter);
 
-app.route('/api',(request, response)=>{
+app.get('/api/access.log',(request, response)=>{
+	fs.readFile('./access.log', 'utf8', (error, data) => {
+	  if (error) {
+		    response.send(genericUtils.createErrorResponse(error));
+		return;
+	  }
+	    response.send(genericUtils.createSuccessResponse(data));
+	})
+});
+
+app.get('/api',(request, response)=>{
     response.send({version:'v1', status:'UP'});
 });
+
 
 const options = {
     key : fs.readFileSync('./secrets/server.key'),
