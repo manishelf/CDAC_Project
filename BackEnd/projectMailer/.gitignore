@@ -1,5 +1,6 @@
 /secrets
 configs.js
+access.log
 
 # Logs
 logs

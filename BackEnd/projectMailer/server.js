@@ -1,6 +1,7 @@
 const express = require('express');
 const https = require('https');
 const fs = require('fs');
+var path = require('path')
 const genericUtils = require('./utils/genericUtils');
 const configs = require('./configs');
 
@@ -16,7 +17,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use(morgan('combined'));
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use(genericUtils.jwtAuthMiddleware);
 
