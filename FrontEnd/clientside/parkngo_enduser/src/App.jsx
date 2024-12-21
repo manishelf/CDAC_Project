@@ -6,8 +6,8 @@ import UserReviewScreen from './screens/UserReviewScreen';
 function App() {
   return (
     <>
-    <UserReviewScreen />
-    {/* <PaymentReciptScreen /> */}
+    {/* <UserReviewScreen />
+    <PaymentReciptScreen /> */}
     <ToastContainer />
     </>
   );

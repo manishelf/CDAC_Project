@@ -1,0 +1,4 @@
+.list li::before{
+    content: "🡭 ";
+    color: green;
+}
