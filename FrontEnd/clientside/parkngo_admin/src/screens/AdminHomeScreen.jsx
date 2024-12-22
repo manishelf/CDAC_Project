@@ -67,7 +67,7 @@ export default function AdminHomeScreen(){
             <div className='container border border-success rounded text-success'>
                 <div className='col  m-4 p-4 align-content-center'>
                     <div className='row' >
-                        <div className='col align-content-center' style={{fontSize:"4em"}}>
+                        <div className='col-4 align-content-center' style={{fontSize:"4em"}}>
                             Approve
                             <MdApproval /> 
                         </div>
