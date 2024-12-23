@@ -1,8 +1,8 @@
 import { MdGroup ,MdLocalParking, MdAttachMoney, MdStore, MdReport , MdApproval} from 'react-icons/md';
 import './AdminHomeScreen.css'
-import SimpleLineChart from '../components/LineGraph';
-import StatusItem from '../components/StatusItem';
-import MetricsItem from './../components/MetricsItem';
+import SimpleLineChart from '../../components/LineGraph';
+import StatusItem from '../../components/StatusItem';
+import MetricsItem from '../../components/MetricsItem';
 
 const data = [
     { time: '00:00', occupancy: 4000 },

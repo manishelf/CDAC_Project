@@ -1,10 +1,10 @@
-import AdminHomeScreen from './screens/AdminHomeScreen';
+import AdminEntityDetails from './screens/AdminEntityDetails/AdminEntityDetails';
 
 
 function App() {
   return (
     <>
-      <AdminHomeScreen/>
+    <AdminEntityDetails />
     </>
   )
 }
