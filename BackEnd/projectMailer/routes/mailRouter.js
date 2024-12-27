@@ -18,7 +18,7 @@ const transporter = mailer.createTransport(
     }
 );
 
-
+// for async communication with client
 async function handleCallbackToClient(clientId, callbackURL, result){
     try{
         let calbackResult = await axios.post(
@@ -34,6 +34,7 @@ async function handleCallbackToClient(clientId, callbackURL, result){
     }
 }
 
+//Mailing request endpoint
 router.post('/',
     async (request, response)=>{
         const mail = request.body['mail'];
@@ -45,6 +46,7 @@ router.post('/',
 
         const clientId = request.payload.id;
 
+        //fetch mail template from db
         const mailTemplate = await dbUtils.getMailTemplateByName(clientId, mail['templateName'])
                                     .then(template=>template)
                                     .catch((error)=>{
@@ -56,6 +58,7 @@ router.post('/',
         let subject = mailTemplate['subject'];
         let html =`${mailTemplate.header}${mailTemplate.body}${mailTemplate.footer}`;
 
+        // populate the placeholders in the mail template with corresponding values
         const entries = mail['entries'];
         for (const key in entries) {
             subject = subject.replaceAll(`#[${key}]`, entries[key]);
@@ -74,10 +77,13 @@ router.post('/',
                 html
             }
         );
+
+        //send confirmation asyncronously
         handleCallbackToClient(clientId, mail['callback'], result);
     }
 );
 
+// clients mail logs 
 router.get('/',
     (request, response)=>{
         const getAllMailLogs = `

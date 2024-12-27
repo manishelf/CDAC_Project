@@ -4,6 +4,7 @@ const dbUtils = require('../utils/dbUtils');
 
 const router = express.Router();
 
+//mail template post endpoint
 router.post('/',
     async (request, response)=>{
 
@@ -26,6 +27,7 @@ router.post('/',
     }
 );
 
+//get client template endpoint
 router.get('/',async (request, response)=>{
 
     const clientId = request.payload['id'];

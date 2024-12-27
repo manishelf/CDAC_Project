@@ -122,6 +122,7 @@ const getClientTemplates = async function(clientId){
     );
 }
 
+// for caching the templates retrieved form db to reduce requests
 const TemplateCacheList = new Map();
 
 const getMailTemplateByName = async function (clientId, templateName) {

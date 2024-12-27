@@ -15,6 +15,7 @@ function createResponse(error, success){
     else return createSuccessResponse(success)
 }
 
+// hash using sha512 and RSA - pbkdf2
 function hashPassword(password){
     const salt = crypto.randomBytes(16).toString('hex');
     const hash = crypto.pbkdf2Sync(password, salt, 10000, 64, 'sha512').toString('hex');
@@ -26,6 +27,7 @@ function createToken(payload, options={}){
     return encryptToken(token);
 }
 
+//encrypting using aes-256
 function encryptToken(token){
     const algorithm = 'aes-256-cbc';
     const key = crypto.scryptSync(secrets.jwtEncryptionSecret, 'salt', 32);
@@ -52,6 +54,7 @@ function decryptToken(encryptedToken){
     return decrypted; 
 }
 
+//Authentication middleware
 const jwtAuthMiddleware = async (request, response, next) => {
     if(request.url === '/api/v1/register') next()
     else{

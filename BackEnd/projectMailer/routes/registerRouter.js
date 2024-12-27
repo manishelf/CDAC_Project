@@ -4,12 +4,15 @@ const utils = require('../utils/genericUtils');
 
 const router = express.Router();
 
+
+// registration endpoint
 router.post('/',
     async (request, response)=>{ 
 
         const {clientName , email, password}= request.body;
         if(clientName.length===0||email.length===0||password===0) return response.status(400).send('clientName and email and password cannot be empty');
 
+        //hash using sha512 and RSA - pbkdf2
         const cypherPassword = utils.hashPassword(password);
 
         const client = {clientName, email, cypherPassword};
