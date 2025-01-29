@@ -1,133 +1,152 @@
-import { useEffect, useState } from 'react';
-import './AdminEntityDetails.css'
+import { useEffect, useState } from "react";
 
-export default function AdminEntityDetails(){
-    const data = [
-        {
-            lot_id: 1,
-            lot_name: "Krushna Parkings",
-            lot_owner: "xyz@sans.com",
-            lot_managers: ["pq@gasa.com"],
-            lot_coords: {
-                lat: "19.0760",
-                long: "72.8777"
-            },
-            lot_zone: 1,
-            lot_size: 100,
-        },
-        {
-            lot_id: 2,
-            lot_name: "Green Valley Parking",
-            lot_owner: "abc@greenvalley.com",
-            lot_managers: ["lm@greenvalley.com", "no@greenvalley.com"],
-            lot_coords: {
-                lat: "28.7041",
-                long: "77.1025"
-            },
-            lot_zone: 2,
-            lot_size: 150,
-        },
-        {
-            lot_id: 3,
-            lot_name: "Sunshine Parking",
-            lot_owner: "sunshine@parking.com",
-            lot_managers: ["uv@sunshine.com"],
-            lot_coords: {
-                lat: "13.0827",
-                long: "80.2707"
-            },
-            lot_zone: 3,
-            lot_size: 200,
-        },
-        {
-            lot_id: 4,
-            lot_name: "Downtown Parking",
-            lot_owner: "downtown@parking.com",
-            lot_managers: ["wx@downtown.com", "yz@downtown.com",],
-            lot_coords: {
-                lat: "22.5726",
-                long: "88.3639"
-            },
-            lot_zone: 4,
-            lot_size: 250,
-        }
-    ];
+import "./AdminEntityDetails.css";
+import SimpleLineChart from "../../components/LineGraph"; // Reuse the line chart component
 
-    const [tableData, setTableData] = useState([]);
-    const [sortDir, setSortDir] = useState({ key: null, direction: 'aesc' });
+import { lot_data, occupancy_data } from "../../data/data";
+import SimpleBarChart from "../../components/SimpleBarChart";
 
-    
-    const sortData = (key) => {
-        let direction = 'aesc';
-        if (sortDir.key === key && sortDir.direction === 'aesc') {
-            direction = 'desc';
-        }
-        const sortedData = [...tableData].sort((a, b) => {
-            if (a[key] < b[key]) {
-                return direction === 'aesc' ? -1 : 1;
-            }
-            if (a[key] > b[key]) {
-                return direction === 'aesc' ? 1 : -1;
-            }
-            return 0;
-        });
-        setSortDir({ key, direction });
-        setTableData(sortedData);
-    };
+export default function AdminEntityDetails() {
+  const [tableData, setTableData] = useState([]);
+  const [sortDir, setSortDir] = useState({ key: null, direction: "aesc" });
+  const [activeTab, setActiveTab] = useState("table"); // New state for active tab
 
+  const sortData = (key) => {
+    let direction = "aesc";
+    if (sortDir.key === key && sortDir.direction === "aesc") {
+      direction = "desc";
+    }
+    const sortedData = [...tableData].sort((a, b) => {
+      if (a[key] < b[key]) return direction === "aesc" ? -1 : 1;
+      if (a[key] > b[key]) return direction === "aesc" ? 1 : -1;
+      return 0;
+    });
+    setSortDir({ key, direction });
+    setTableData(sortedData);
+  };
 
-    useEffect(()=>{setTableData(data);},[]);
-    return (
-        <div className="table-responsive entity-table">
-            <table className="table table-bordered table-hover shadow text-center" >
-                <thead className="table-primary">
-                    <tr>
-                    {
-                       Object.keys(tableData[0] || {}).map((key)=>{
-                        return <th>
-                            {key}&nbsp;
-                            <button className='btn btn-muted btn-outline-info text-info-emphasis btn-sm'
-                                onClick={() => sortData(key)}>
-                                ⇅ 
-                            </button>
-                        </th>
-                      })
-                    }
-                    </tr>
-                </thead>
-                <tbody>                    
-                {tableData.map((row)=>{
-                    const keys = Object.keys(row);
-                    return <tr title="Click to Edit Record ▞" className="align-middle">
-                        {
-                            <>{
-                            keys.map((data)=>{
-                                if(Array.isArray(row[data])) 
-                                    return <td><ul className="mb-0">
-                                        {row[data].map((inner)=>{
-                                            return <li>{inner}</li>
-                                            })
-                                        }
-                                    </ul></td>
-                                else if(typeof row[data]==='object')
-                                        return <td>
-                                            <ul className="mb-0">
-                                                {Object.entries(row[data]).map((entry)=>{
-                                                    return <>{entry.toString()}<br></br></>
-                                                })
-                                                }
-                                            </ul>
-                                        </td>
-                                else return <td>
-                                    {row[data]}
-                                </td>
-                            })}
-                            </>
-                        }
-                    </tr>
-                })}
-                </tbody>
-            </table>
+  useEffect(() => {
+    setTableData(lot_data);
+  }, []);
+
+  // Data transformation for charts
+  const chartData = lot_data.map((item) => ({
+    name: item.lot_name,
+    occupancy: item.lot_size,
+  }));
+
+  return (
+    <div>
+      {/* Navigation Bar */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <div className="container-fluid">
+          <button
+            className="btn btn-primary me-2"
+            onClick={() => setActiveTab("table")}
+          >
+            Table View
+          </button>
+          <button
+            className="btn btn-primary me-2"
+            onClick={() => setActiveTab("lineChart")}
+          >
+            Line Chart
+          </button>
+          <button
+            className="btn btn-primary me-2"
+            onClick={() => setActiveTab("barChart")}
+          >
+            Bar Chart
+          </button>
+          <button
+            className="btn btn-primary me-2"
+            onClick={() => setActiveTab("summary")}
+          >
+            Summary
+          </button>
         </div>
-    );
+      </nav>
+
+      {/* Conditional Rendering */}
+      <div>
+        {activeTab === "table" && (
+          <div className="table-responsive entity-table">
+            <table className="table table-bordered table-hover shadow text-center">
+              <thead className="table-primary">
+                <tr>
+                  {Object.keys(tableData[0] || {}).map((key) => (
+                    <th key={key}>
+                      {key}&nbsp;
+                      <button
+                        className="btn btn-muted btn-outline-info text-info-emphasis btn-sm"
+                        onClick={() => sortData(key)}
+                      >
+                        ⇅
+                      </button>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {tableData.map((row) => {
+                  const keys = Object.keys(row);
+                  return (
+                    <tr
+                      key={row.lot_id}
+                      title="Click to Edit Record ▞"
+                      className="align-middle"
+                    >
+                      {keys.map((lot_data) => {
+                        if (Array.isArray(row[lot_data]))
+                          return (
+                            <td key={lot_data}>
+                              <ul className="mb-0">
+                                {row[lot_data].map((inner, idx) => (
+                                  <li key={idx}>{inner}</li>
+                                ))}
+                              </ul>
+                            </td>
+                          );
+                        else if (typeof row[lot_data] === "object")
+                          return (
+                            <td key={lot_data}>
+                              <ul className="mb-0">
+                                {Object.entries(row[lot_data]).map(
+                                  (entry, idx) => (
+                                    <li key={idx}>{entry.toString()}</li>
+                                  )
+                                )}
+                              </ul>
+                            </td>
+                          );
+                        else return <td key={lot_data}>{row[lot_data]}</td>;
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {activeTab === "lineChart" && <SimpleLineChart data={chartData} />}
+
+        {activeTab === "barChart" && <SimpleBarChart data={occupancy_data} />}
+
+        {activeTab === "summary" && (
+          <div className="card shadow p-4">
+            <h4>Summary</h4>
+            <p>Total Parking Lots: {lot_data.length}</p>
+            <p>
+              Average Lot Size:{" "}
+              {Math.round(
+                lot_data.reduce((acc, lot) => acc + lot.lot_size, 0) /
+                  lot_data.length
+              )}
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
