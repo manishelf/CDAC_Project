@@ -1,12 +1,13 @@
-import AdminEntityDetails from './screens/AdminEntityDetails/AdminEntityDetails';
-
+import AdminEntityDetails from "./screens/AdminEntityDetails/AdminEntityDetails";
+import AdminHomeScreen from "./screens/AdminHomeScreen/AdminHomeScreen";
 
 function App() {
   return (
     <>
-    <AdminEntityDetails />
+      <AdminHomeScreen />
+      <AdminEntityDetails />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
