@@ -14,16 +14,16 @@ const Footer = () => {
             </div>
             <div className="footer-contact">
               <h2>Contact Us</h2>
-              <p><FaMapMarkerAlt className="icon" /> 123 Parking Street, New Delhi</p>
-              <p><FaPhone className="icon" /> +91 98765 43210</p>
-              <p><FaEnvelope className="icon" /> support@onlineparking.com</p>
+              <p><FaMapMarkerAlt className="icon" /> Sunbeam infotech</p>
+              <p><FaPhone className="icon" /> +91 xxxxx xxxxx</p>
+              <p><FaEnvelope className="icon" />parkngo@gmail.com</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Online Parking. All Rights Reserved.</p>
+      <div className="footer-bottom text-bg-dark">
+        <p>© {new Date().getFullYear()} ParknGo. All Rights Reserved.</p>
       </div>
     </footer>
   );
