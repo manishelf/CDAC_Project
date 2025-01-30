@@ -1,0 +1,76 @@
+.footer {
+  width: 100%;
+  background: #f8f9fa;
+  
+  
+}
+
+.footer-container {
+  width: 100%;
+  max-width: 100%;
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.footer-card {
+  background: #2C3E50;
+  padding: 2rem;
+  
+  width: 100%;
+  /* max-width: none; Remove the max-width constraint */
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between; /* Distribute items evenly */
+  align-items: flex-start; /* Align items to the top */
+}
+
+.footer-about,
+.footer-contact {
+  width: 45%; /* Adjust width as needed */
+  text-align: left;
+}
+
+.footer h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.footer p {
+  font-size: 1rem;
+  color: #ECF0F1;
+}
+
+.footer .icon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+  color: #8000ff;
+}
+
+.footer-bottom {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #ECF0F1;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+
+  .footer-about,
+  .footer-contact {
+    width: 100%; /* Maintain full width on smaller screens */
+    
+  }
+}
