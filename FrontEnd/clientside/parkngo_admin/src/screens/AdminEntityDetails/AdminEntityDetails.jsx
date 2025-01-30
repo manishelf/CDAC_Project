@@ -89,7 +89,7 @@ export default function AdminEntityDetails() {
       </nav>
 
       {/* Conditional Rendering */}
-      <div className="">
+      <div className="container-fluid">
         {activeTab === "table" && (
           <div className="table-responsive entity-table">
             <table className="table table-bordered table-hover shadow text-center">

@@ -11,9 +11,9 @@ import {
 
 const SimpleBarChart = ({ data }) => {
   return (
-    <div style={{ width: "100%", height: "100%" }}>
-      <h2>Occupancy Data Chart</h2>
-      <ResponsiveContainer width="100%" height="100%">
+    <div className="container">
+      <h2>Occupancy Data Chart</h2> 
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
           margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
