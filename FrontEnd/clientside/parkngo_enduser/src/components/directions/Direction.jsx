@@ -53,10 +53,10 @@ export default function Directions(props) {
     
     if (!isVisible|!leg) return null;
     return (
-        <div className='directions p-0'> 
+        <div className='directions p-0 bg-dark text-white'> 
         <button className="btn border border-2 float-end shadow-lg text-white" onClick={()=>{setIsVisible(false);}}>x</button>
         <div className='container'>
-            <h2>{selected.summary}</h2>
+            <h6><u>{selected.summary}</u></h6>
             <p>
                 {leg.start_address.split(',')[0]} to {leg.end_address.split(',')[0]}
             </p>

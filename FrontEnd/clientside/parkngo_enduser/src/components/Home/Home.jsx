@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <section className='home'>
       <div className='overlay'></div>
-      <div className='container'>
+      <div className='containerx'>
         <h2>Available Parking Slots</h2>
         <ul className="parkingList">
           {parkingSlots.map((slot) => (

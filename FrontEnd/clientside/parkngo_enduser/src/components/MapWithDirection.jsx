@@ -48,12 +48,12 @@ export default function MapWithDirection({from, to}) {
 
 
     return (
-            <div className='container border border-3 border-primary g-0' style={{height: '100vh'}}>
+            <div className='container border border-3 border-primary g-0' style={{height: '100%'}}>
                 <APIProvider apiKey={API_KEY}>
                     <Map
                         defaultZoom={10}
                         defaultCenter={{lat: 22.54992, lng: 0}}
-                        gestureHandling={'greedy'}
+                        // gestureHandling={'greedy'}
                         id="gmap"
                         mapId="8c732c82e4ec29d9"
                         disableDefaultUI={true}
