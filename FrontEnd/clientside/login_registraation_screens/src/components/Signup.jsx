@@ -10,8 +10,8 @@ const SignUp = () => {
         name: "",
         email: "",
         password: "",
-        license: "",
-        role: "User",
+        drivingLiscence: "",
+        role: "END_USER",
         mobile: "",
     });
 
@@ -64,7 +64,7 @@ const SignUp = () => {
             return;
         }
 
-        if (!isValidLicense(userData.license)) {
+        if (!isValidLicense(userData.drivingLiscence)) {
             setMessage("Your Driving License is required.");
             return;
         }
@@ -79,13 +79,16 @@ const SignUp = () => {
             return;
         }
 
-        try {
-            const res = await axios.post("http://localhost:4000/signup", userData);
-            setToken(res.data.token);
-            navigate("/login");
-        } catch (error) {
-            setMessage("SignUp failed. Please try again.");
-        }
+        axios.post("https://localhost:9443/user/register", userData)
+            .then((res) => {
+                console.log(res);
+                if (res.status === 201) {
+                    setToken(res);
+                    navigate("/");
+                } else {
+                    setMessage("SignUp failed. Please try again.");
+                }})
+            .catch((err) => { console.log(err); setMessage("SignUp failed. Please try again."); });
     };
 
     const handleInputChange = (e) => {
@@ -182,7 +185,7 @@ const SignUp = () => {
                         {step === 3 && (
                             <section className="mb-3">
                                 <label htmlFor="license" className="fs-4">Your Driving License:</label>
-                                <MDBInput type="text" name="license" value={userData.license} onChange={handleInputChange} required />
+                                <MDBInput type="text" name="drivingLiscence" value={userData.drivingLiscence} onChange={handleInputChange} required />
                             </section>
                         )}
                         {step === 4 && (

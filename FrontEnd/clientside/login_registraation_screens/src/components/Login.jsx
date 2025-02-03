@@ -10,7 +10,7 @@ const Login = () => {
   const [message, setMessage] = useState('');
 
   const isValidateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z]{2,}$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z]{2,}\.com$/;
     return emailRegex.test(email);
   };
 
@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+    setUserData({ ...userData, [e.target.name]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e) => {
@@ -36,13 +36,10 @@ const Login = () => {
       return;
     }
 
-    try {
-      const res = await axios.post(`${window.location.origin}/user/register`, userData);
-      setToken(res.data.token);
-      console.log(res);
-    } catch (error) {
-      setMessage('Login failed. Check your credentials.');
-    }
+    axios.post(`https://localhost:9443/user/login`, userData)
+        .then((res) => { setToken(res.data.token); console.log(res); })
+        .catch((error) => { console.error(error); setMessage('Login failed. Check your credentials.'); });
+   
   };
 
   return (
