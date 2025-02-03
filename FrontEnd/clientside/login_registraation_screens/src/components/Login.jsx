@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { setToken } from '../utiles/auth';
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
-import parkImage from '../utiles/park.jpg';
+import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import parkImage from '../res/mainIcon.png';
 
 const Login = () => {
   const [userData, setUserData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
-  const navigate = useNavigate();
 
   const isValidateEmail = (email) => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z]{2,}$/;
     return emailRegex.test(email);
   };
 
@@ -25,14 +24,10 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    
-    e.preventDefault();
-
-    // Reset message before validation
     setMessage('');
 
     if (!isValidateEmail(userData.email)) {
-      setMessage('Invalid email. It should end with @gmail.com and contain alphanumeric characters.');
+      setMessage('Invalid email. It should end with a domain and contain alphanumeric characters only!');
       return;
     }
 
@@ -42,9 +37,9 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:4000/login', userData);
+      const res = await axios.post(`${window.location.origin}/user/register`, userData);
       setToken(res.data.token);
-      navigate('/home');
+      console.log(res);
     } catch (error) {
       setMessage('Login failed. Check your credentials.');
     }
@@ -53,36 +48,39 @@ const Login = () => {
   return (
     <MDBContainer className="d-flex justify-content-center align-items-center h-100">
       <MDBRow className="d-flex justify-content-center w-100">
-        <div className="text-center mb-4">
-          <img src={parkImage} style={{ width: '200px' }} alt="logo" />
-          <h4 className="mt-1 mb-5 pb-1">ParkANDGo</h4>
+        <MDBCol  className='text-center text-lg-start col-8'>
+        <div className='d-flex justify-content-center'>
+          <img src={parkImage} alt="logo" />
         </div>
-
-        <MDBCol md="4" className="p-4 shadow-sm rounded">
-          <h2 className="text-center mb-4">Login</h2>
-          <form onSubmit={handleSubmit}>
-            <MDBInput
+        <h1 className='display-4 fw-bold text-body-emphasis'>Welcome to ParkNGo</h1>
+        <p className='fs-4'>Log in to reserve your parking spot, manage your bookings, and enjoy a hassle-free parking experience.</p>
+        </MDBCol>
+        <MDBCol className="p-4 justify-content-center col shadow-sm rounded align-content-center">
+          <h2 className="mb-4 row text-success justify-content-center">Login</h2>
+          <div className='row'>
+            <input
               placeholder="Email"
               type="email"
               name="email"
               value={userData.email}
               onChange={handleChange}
               required
-              className="mb-4"
+              className="form-control-lg mb-4"
             />
-            <MDBInput
+            <input
               placeholder="Password"
               type="password"
               name="password"
               value={userData.password}
               onChange={handleChange}
               required
-              className="mb-4"
+              className="form-control-lg mb-4"
             />
             <section className='d-flex justify-content-center'>
-              <button type='submit' className='btn btn-primary'>Login</button>
+              <button className='btn btn-primary btn-lg' onClick={handleSubmit}>Login</button>
             </section>
-          </form>
+            <div className='text-center text-muted'>No account? Register <Link to="/register">here</Link></div>
+          </div>
           {message && (
             <p className="text-danger text-center" style={{ marginTop: '10px' }}>
               {message}

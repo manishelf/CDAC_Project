@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import SignUp from './components/Signup';
 import Login from './components/Login';
 import { isLoggedIn } from './utiles/auth';
+// import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (

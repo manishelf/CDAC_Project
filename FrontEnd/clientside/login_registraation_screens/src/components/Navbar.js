@@ -19,7 +19,7 @@ const Navbar=()=>{
               </button>) :(
                 <>
                 <Link to="login" className='mr-4'>Login</Link>
-                <Link to="/signup" className='mr-4'>Signup</Link>
+                <Link to="register" className='mr-4'>Signup</Link>
                 </>
 
               )
