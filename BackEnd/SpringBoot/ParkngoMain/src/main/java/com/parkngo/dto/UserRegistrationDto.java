@@ -22,11 +22,9 @@ public class UserRegistrationDto {
 	String password;
 	
 	@NotEmpty(message = "first name cannot be empty")
-	String firstName;
-	
-	@NotEmpty(message = "last name cannot be empty")
-	String lastName;
+	String name;
 
+	@NotEmpty(message = "Driving Liscence cannot be empty")
 	String drivingLiscence;
 	
 	@NotNull(message = "user role missing")

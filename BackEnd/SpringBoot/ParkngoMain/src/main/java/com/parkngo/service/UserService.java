@@ -16,6 +16,7 @@ import com.parkngo.dao.UserDao;
 import com.parkngo.dto.JWTAuthResponse;
 import com.parkngo.dto.UserAuthenticationDto;
 import com.parkngo.dto.UserRegistrationDto;
+import com.parkngo.exception.InvalidCredentialsException;
 import com.parkngo.pojos.User;
 import com.parkngo.pojos.User.Role;
 import com.parkngo.security.JwtUtil;
@@ -49,19 +50,29 @@ public class UserService {
 		userDao.save(user);
 	}
 
-	public JWTAuthResponse authenticate(@Valid UserAuthenticationDto userAuthDto) {
+	public JWTAuthResponse authenticate(@Valid UserAuthenticationDto userAuthDto) throws InvalidCredentialsException {
 		
-		Authentication verifiedAuth = authMgr
-				.authenticate(new UsernamePasswordAuthenticationToken
-						(userAuthDto.getEmail(), userAuthDto.getPassword()));
-		
-		String authorities = verifiedAuth.getAuthorities().toArray()[0].toString();
-		
-		Role userRole = Role.valueOf(authorities);
-		
-		String JWT = jwtUtil.generateJwtToken(verifiedAuth);
-		
-		return new JWTAuthResponse(JWT, userRole);
+		try {
+			
+			String email = userAuthDto.getEmail();
+			
+			String password = userAuthDto.getPassword();
+						
+			Authentication verifiedAuth = authMgr
+					.authenticate(new UsernamePasswordAuthenticationToken
+							(email, password));
+			
+			String authorities = verifiedAuth.getAuthorities().toArray()[0].toString();
+
+			
+			Role userRole = Role.valueOf(authorities);
+			
+			String JWT = jwtUtil.generateJwtToken(verifiedAuth);
+
+			return new JWTAuthResponse(JWT, userRole);
+		}catch(Exception e) {
+			throw new InvalidCredentialsException(e.getMessage());
+		}
 	}
 
 }

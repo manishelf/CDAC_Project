@@ -34,10 +34,8 @@ public class User {
 	@Column(nullable = false)
 	String password;
 	
-	String firstName;
-	
-	String lastName;
-	
+	@Column(length = 50, nullable = false)
+	String name;
 	
 	@Column(length=100, nullable = false, unique = true)
 	String drivingLiscence;
@@ -45,7 +43,7 @@ public class User {
 	
 	//for soft delete
 	@Column(name = "is_active")
-	Boolean isActive;
+	Boolean isActive = true;
 	
 	@Enumerated(EnumType.STRING)
 	Role role = Role.END_USER;

@@ -23,7 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService{
 		
 		User user = userDao.findByEmail(userEmail)
 				.orElseThrow(()-> new UsernameNotFoundException("no user with email '"+userEmail+"'"));
-		
+				
 		return new CustomUserDetails(user);
 	}
 
