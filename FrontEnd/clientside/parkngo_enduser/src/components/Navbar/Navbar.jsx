@@ -25,6 +25,7 @@ const Navbar = () => {
                 Menu
               </a>
             </li>
+            
             <li className="navItem">
               <a href="#login" className="navLink">
                 Logout

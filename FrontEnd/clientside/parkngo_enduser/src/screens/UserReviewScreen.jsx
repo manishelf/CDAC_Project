@@ -1,10 +1,14 @@
+import Footer from '../components/Footer/Footer';
+import Navbar from '../components/Navbar/Navbar';
 import ReviewStars from '../components/ReviewStars/ReviewStars';
 import GenericLightContainer from './../components/GenericLightContainer';
 
 export default function UserReviewScreen(){
     const lotName = "krishna parkings"
     return <>
+        <Navbar/>
         <GenericLightContainer>
+            
             <span className="display-6 text-primary" style={{fontWeight:"700"}}>Review Your Experience!</span>
             <span className="mx-3 text-success display-6 d-block">Lot : {lotName}</span>
 
@@ -36,5 +40,6 @@ export default function UserReviewScreen(){
                 <a href=".">here</a>
             </span>
         </GenericLightContainer>
+        <Footer/>
     </>
 }

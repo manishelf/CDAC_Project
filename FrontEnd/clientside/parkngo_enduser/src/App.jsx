@@ -1,36 +1,39 @@
-import { ToastContainer } from 'react-toastify';
-import PaymentReciptScreen from './screens/PaymentReciptScreen';
-import 'react-toastify/dist/ReactToastify.css';
-import UserReviewScreen from './screens/UserReviewScreen';
-import PaymentConfirmationScreen from './screens/PaymentConfirmationScreen';
-import MapWithDirection from './components/MapWithDirection';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-import Home from './components/Home/Home'
+import React from "react";
+import { Routes, Route, Link, Navigate } from "react-router-dom";
+import HomeScreen from "./screens/HomeScreen";
+import PaymentConfirmationScreen from "./screens/PaymentConfirmationScreen";
+import PaymentReciptScreen from "./screens/PaymentReciptScreen";
+import UserReviewScreen from "./screens/UserReviewScreen";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
-    {/* <UserReviewScreen />
-    <PaymentReciptScreen />
-    <PaymentConfirmationScreen />
-    <ToastContainer />
-	*/}
-    <Navbar />
-    <div className='container-fluid bg-secondary' style={{height: '1rem'}} />
-	  <div className='row'>
-      <div className='col'>
-        <Home />
-      </div>
-      <div className='col-5' style={{height: '100vh'}}>
-        <MapWithDirection 
-        from='Neelaya society, Talegaon Dabhade, Pune, Maharashtra' 
-        to='Sunbeam info tech, Pune, Maharashtra'
+      {/* Navigation Bar for Routing */}
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/payment-confirmation">Payment Confirmation</Link> |{" "}
+        <Link to="/payment-receipt">Payment Receipt</Link> |{" "}
+        <Link to="/user-review">User Review</Link>
+      </nav>
+
+      {/* Define Routes */}
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route
+          path="/payment-confirmation"
+          element={<PaymentConfirmationScreen />}
         />
-      </div>
-    </div>
-    <div className='container-fluid bg-secondary' style={{height: '1rem'}} />
-    <Footer />
+        <Route path="/payment-receipt" element={<PaymentReciptScreen />} />
+        <Route path="/user-review" element={<UserReviewScreen />} />
+
+        {/* Redirect any unknown route to HomeScreen */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+
+      {/* Toast Notifications */}
+      <ToastContainer />
     </>
   );
 }
