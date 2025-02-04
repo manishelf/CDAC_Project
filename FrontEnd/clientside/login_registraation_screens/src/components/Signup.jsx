@@ -9,9 +9,11 @@ const SignUp = () => {
     const [userData, setUserData] = useState({
         name: "",
         email: "",
+        emailOtp: null,
         password: "",
+        confirmPassword: "",
         drivingLiscence: "",
-        role: "END_USER",
+        role: "CLIENT",
         mobile: "",
     });
 
@@ -62,6 +64,9 @@ const SignUp = () => {
         if (!isValidPassword(userData.password)) {
             setMessage("Password must be at least 8 characters long and contain at least one uppercase letter.");
             return;
+        }else if (userData.password !== userData.confirmPassword) {
+            setMessage("Passwords do not match.");
+            return;
         }
 
         if (!isValidLicense(userData.drivingLiscence)) {
@@ -95,7 +100,7 @@ const SignUp = () => {
         const { name, value } = e.target;
         setUserData({
             ...userData,
-            [name]: value
+            [name]: value.trim()
         });
     };
 
@@ -126,6 +131,21 @@ const SignUp = () => {
             setStep(step - 1);
         }
     };
+
+    const handleOtpRequest = () => {
+        axios.post("https://localhost:9443/user/otp",
+            null, {
+                params: { email: userData.email }
+            }
+         )
+            .then((res) => {
+                if (res.status === 200) {
+                    setMessage("OTP sent to your email.");
+                } else {
+                    setMessage("Failed to send OTP. Please try again.");
+                }})
+            .catch((err) => { console.log(err); setMessage("Failed to send OTP. Please try again."); });
+    }
 
     return (
         <MDBContainer className="d-flex justify-content-center align-items-center">
@@ -158,14 +178,15 @@ const SignUp = () => {
                                 className="form-control-lg m-2 text-center"/>
                                 <div className="row">
                                 <div className="col">
-                                <MDBInput type="text" name="otp" value={userData.otp} 
+                                <MDBInput type="number" name="emailOtp"  
                                 placeholder="OTP"
+                                value={userData.emailOtp}
                                 onChange={handleInputChange} required 
-                                className="form-control-lg m-2 text-center col"
+                                className="form-control-lg m-2 text-center col" 
                                 />
                                 </div>
                                 <div className="col">
-                                <button className="btn btn-primary btn-lg m-2" type="button">Send otp</button>
+                                <button className="btn btn-primary btn-lg m-2" type="button" onClick={handleOtpRequest}>Send otp</button>
                                 </div>
                                 </div>
                             </section>
@@ -178,7 +199,7 @@ const SignUp = () => {
                             </section>
                             <section className="mb-3">
                                 <label htmlFor="confirmPassword" className="fs-6">Confirm Password:</label>
-                                <MDBInput type="password" name="confirmPassword" required />
+                                <MDBInput type="password" name="confirmPassword" value={userData.confirmPassword} onChange={handleInputChange}/>
                             </section>
                             </>
                         )}
