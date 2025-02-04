@@ -9,7 +9,7 @@ const Navbar = () => {
     <section className="navBarSection">
       <header className="header flex">
         <div>
-          <h1>
+          <h1>``
             <RiParkingBoxFill className="icon" /> ParkNgo
           </h1>
         </div>
@@ -25,7 +25,6 @@ const Navbar = () => {
                 Menu
               </a>
             </li>
-            
             <li className="navItem">
               <a href="#login" className="navLink">
                 Logout

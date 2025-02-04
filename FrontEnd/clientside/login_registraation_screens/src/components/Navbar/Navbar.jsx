@@ -10,7 +10,7 @@ const Navbar = () => {
       <header className="header flex">
         <div>
           <h1>
-            <RiParkingBoxFill className="icon" /> Online Parking
+            <RiParkingBoxFill className="icon" /> ParkNgo
           </h1>
         </div>
         <div className={active}>
@@ -27,12 +27,7 @@ const Navbar = () => {
             </li>
             <li className="navItem">
               <a href="#login" className="navLink">
-                Login
-              </a>
-            </li>
-            <li className="navItem">
-              <a href="#signup" className="navLink">
-                Sign Up
+                Logout
               </a>
             </li>
           </ul>
