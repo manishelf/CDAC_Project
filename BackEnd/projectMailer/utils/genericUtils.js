@@ -58,11 +58,12 @@ function decryptToken(encryptedToken){
 const jwtAuthMiddleware = async (request, response, next) => {
     if(request.url === '/api/v1/register') next()
     else{
-        const {token} = request.headers;
-        if(token === undefined) response.send(createErrorResponse('missing token'));
+        let {authorization} = request.headers;
+        if(authorization === undefined) response.send(createErrorResponse('missing token'));
         else{
+            authorization = authorization.substring(7); // 'Bearer JWT'
             try{
-                const decryptedToken = decryptToken(token);
+                const decryptedToken = decryptToken(authorization);
                 const payload = jwt.verify(decryptedToken, secrets.jwtSignSecret);
                 request.payload = payload;
                 next();

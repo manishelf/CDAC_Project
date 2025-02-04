@@ -24,6 +24,7 @@ async function handleCallbackToClient(clientId, callbackURL, result){
         let calbackResult = await axios.post(
             callbackURL,
             genericUtils.createSuccessResponse({
+                mailId : result['messageId'], 
                 recipients : result['accepted'],
                 rejected : result['rejected']
             })
@@ -37,7 +38,7 @@ async function handleCallbackToClient(clientId, callbackURL, result){
 //Mailing request endpoint
 router.post('/',
     async (request, response)=>{
-        const mail = request.body['mail'];
+        const mail = request.body;
 
         if(!mail) {
             response.status(400);
@@ -77,7 +78,6 @@ router.post('/',
                 html
             }
         );
-
         //send confirmation asyncronously
         handleCallbackToClient(clientId, mail['callback'], result);
     }

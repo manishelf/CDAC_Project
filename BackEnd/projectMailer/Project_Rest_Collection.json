@@ -1,9 +1,14 @@
 {
   "info": {
     "name": "Project_Rest_Collection",
+    "description": "",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
+    {
+      "name": "bruno",
+      "event": []
+    },
     {
       "name": "get mail logs",
       "event": [],
@@ -11,8 +16,8 @@
         "method": "GET",
         "header": [
           {
-            "key": "token",
-            "value": "55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
+            "key": "authorization",
+            "value": "Bearer 55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
             "disabled": false,
             "type": "default"
           }
@@ -20,8 +25,8 @@
         "auth": null,
         "description": "",
         "url": {
-          "raw": "https://localhost:4000/api/v1/mail",
-          "protocol": "https",
+          "raw": "http://localhost:4000/api/v1/mail",
+          "protocol": "http",
           "host": [
             "localhost:4000"
           ],
@@ -42,8 +47,8 @@
         "method": "GET",
         "header": [
           {
-            "key": "token",
-            "value": "55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
+            "key": "authorization",
+            "value": "Bearer 55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
             "disabled": false,
             "type": "default"
           }
@@ -51,8 +56,8 @@
         "auth": null,
         "description": "",
         "url": {
-          "raw": "https://localhost:4000/api/v1/template",
-          "protocol": "https",
+          "raw": "http://localhost:4000/api/v1/template",
+          "protocol": "http",
           "host": [
             "localhost:4000"
           ],
@@ -63,15 +68,6 @@
           ],
           "query": [],
           "variable": []
-        },
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
         }
       }
     },
@@ -84,8 +80,8 @@
         "auth": null,
         "description": "",
         "url": {
-          "raw": "https://localhost:4000/api/v1/register",
-          "protocol": "https",
+          "raw": "http://localhost:4000/api/v1/register",
+          "protocol": "http",
           "host": [
             "localhost:4000"
           ],
@@ -115,8 +111,8 @@
         "method": "POST",
         "header": [
           {
-            "key": "token",
-            "value": "55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
+            "key": "authorization",
+            "value": "Bearer 55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
             "disabled": false,
             "type": "default"
           }
@@ -124,8 +120,8 @@
         "auth": null,
         "description": "",
         "url": {
-          "raw": "https://localhost:4000/api/v1/mail",
-          "protocol": "https",
+          "raw": "http://localhost:4000/api/v1/mail",
+          "protocol": "http",
           "host": [
             "localhost:4000"
           ],
@@ -139,7 +135,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"mail\":{\n    \"recipients\" : \"manishpatil7058@gmail.com\",\n    \"templateName\":\"welcomeTemplate\",\n    \"entries\" : {\n      \"key1\":\"manya\",\n      \"key2\":\"sir\"\n    }\n  }\n}",
+          "raw": "{\n    \"recipients\" : \"manishpatil7058@gmail.com\",\n    \"templateName\":\"welcomeTemplate\",\n    \"entries\" : {\n      \"key1\":\"manya\",\n      \"key2\":\"sir\"\n    }\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -155,8 +151,8 @@
         "method": "POST",
         "header": [
           {
-            "key": "token",
-            "value": "55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
+            "key": "authorization",
+            "value": "Bearer 55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
             "disabled": false,
             "type": "default"
           }
@@ -164,8 +160,8 @@
         "auth": null,
         "description": "",
         "url": {
-          "raw": "https://localhost:4000/api/v1/template",
-          "protocol": "https",
+          "raw": "http://localhost:4000/api/v1/template",
+          "protocol": "http",
           "host": [
             "localhost:4000"
           ],
@@ -189,8 +185,34 @@
       }
     },
     {
-      "name": "bruno",
-      "event": []
+      "name": "get access logs",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "authorization",
+            "value": "Bearer 55e50e68aecb2c27047bffc9a1d6551f:d7b8efa4cab3389d85565bdeacd698d7aaae2f303c044cf7a2df54bb9e487a48ee14b6591f43ae9ee3fbe88744606b55812038c8c96cb215a9502262aa4cd9d84a7a612e105c004d77f4cce308623fce6b0f217e31a0c5352b5182395b510abca73136f51464a5c7a0166b195146008046fcb32d88c40db1ba93ac2f21a0abe75431f5d0438b670848c5bea5a0d4c5676c086ace29f2efb4883376517e80b921fcce791bad55274d4a15ef66534b78e3",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": null,
+        "description": "",
+        "url": {
+          "raw": "https://localhost:4000/api/access.log",
+          "protocol": "https",
+          "host": [
+            "localhost:4000"
+          ],
+          "path": [
+            "api",
+            "access.log"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
     }
   ],
   "variable": []

@@ -1,6 +1,5 @@
 const mysql = require('mysql2');
 const configs = require('../configs');
-const utils = require('./genericUtils');
 const moment = require('moment');
 const { response } = require('express');
 
@@ -62,9 +61,9 @@ const emailExistsInDb = async function(email){
     client_id INT,
     template_title VARCHAR(50),
     subject VARCHAR(100),
-    header VARCHAR(255),
+    header TEXT,
     body TEXT,
-    footer VARCHAR(255),
+    footer TEXT,
     template_keys TEXT,
     callback varchar(100),
     FOREIGN KEY (client_id) REFERENCES clients(id),
@@ -74,6 +73,7 @@ const emailExistsInDb = async function(email){
 
 const insertMailTemplate = async function(template){
     const {clientId,templateTitle, mailTemplate, keys, callback} = template;
+    
     const templateInsertStatement = `
         INSERT INTO client_templates(
         client_id, template_title,
@@ -88,7 +88,7 @@ const insertMailTemplate = async function(template){
                 templateInsertStatement,
                 [clientId, templateTitle,
                     mailTemplate.subject,
-                    mailTemplate.headder,
+                    mailTemplate.header,
                     mailTemplate.body,
                     mailTemplate.footer,
                     keys,

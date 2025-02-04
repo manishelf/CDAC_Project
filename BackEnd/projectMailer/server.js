@@ -49,31 +49,37 @@ app.get('/api',(request, response)=>{
 });
 
 //for https -- ssl certs
+// generated using openssl in git bash on windows
+//openssl genrsa -out server.key 2048
+//openssl req -new -key server.key -out server.csr
+//openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.cert
+
+
 const options = {
     key : fs.readFileSync('./secrets/server.key'),
     cert : fs.readFileSync('./secrets/server.cert')
 }
 
-https.createServer(options, app)
-    .listen(
-        configs.server.port,
-        configs.server.accessFilter,
-        ()=>{
-            console.clear();
-            console.log('mailer for ParkNgo');
-            console.log('started mailer web service');
-            console.log('https://localhost:'+configs.server.port+'/api/v1/');
-        }
-    )   
+// https.createServer(options, app)
+//     .listen(
+//         configs.server.port,
+//         configs.server.accessFilter,
+//         ()=>{
+//             console.clear();
+//             console.log('mailer for ParkNgo');
+//             console.log('started mailer web service');
+//             console.log('https://localhost:'+configs.server.port+'/api/v1/');
+//         }
+//     )   
 
 // for http
-// app.listen(
-//     configs.server.port,
-//     configs.server.accessFilter,
-//     (request, response)=>{
-//         console.clear();
-//         console.log('mailer for ParkNgo');
-//         console.log('started mailer web service');
-//         console.log('https://localhost:'+configs.server.port);
-//     }
-// );
+app.listen(
+    configs.server.port,
+    configs.server.accessFilter,
+    (request, response)=>{
+        console.clear();
+        console.log('mailer for ParkNgo');
+        console.log('started mailer web service');
+        console.log('http://localhost:'+configs.server.port);
+    }
+);

@@ -11,7 +11,7 @@ router.post('/',
         const {templateTitle, mailTemplate, keys, callback} = request.body;
         const clientId = request.payload['id'];
         const template = {clientId, templateTitle, mailTemplate, keys, callback};
-
+        
         dbUtils.insertMailTemplate(template).then(
             (result)=>{
                 response.status(201).send(genericUtils.createSuccessResponse('added template '+ templateTitle));
@@ -20,8 +20,10 @@ router.post('/',
             (error)=>{
                 if(error['code']==='ER_DUP_ENTRY')
                     response.status(409).send(genericUtils.createErrorResponse('template with name exists'));
-                else
+                else{
+                    console.log(error);
                     response.status(500).send(genericUtils.createErrorResponse('internal server error'));
+                }
             }
         );
     }
