@@ -42,23 +42,24 @@ public class SecurityConfig{
 	    }
 
 
-	@Bean
-	public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
-        http.cors().and()
-            .csrf().disable()
-            .exceptionHandling().authenticationEntryPoint(authEntry).and()
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/user/register").permitAll()
-                .requestMatchers("/user/login").permitAll()
-                .requestMatchers(HttpMethod.POST).permitAll()
-                .anyRequest().authenticated()
-            )
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
-
+	 @Bean
+	 public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
+	     http.cors(cors->cors.disable())
+	         .csrf(csrf->csrf.disable())
+	         .exceptionHandling(handler->handler.authenticationEntryPoint(authEntry))
+	         .authorizeHttpRequests(auth -> 
+	         	auth.requestMatchers("/user/login", "/user/register","/user/otp").permitAll()
+	         		.requestMatchers(HttpMethod.OPTIONS).permitAll()
+		             .requestMatchers("/users/**", "/apps/**").hasAuthority("ADMIN")
+		             .requestMatchers("/myapps/**").hasAuthority("CLIENT")
+		             .requestMatchers("/v3/api-docs/**").permitAll()
+		             .requestMatchers("/swagger-ui/**").permitAll()
+		             .anyRequest().authenticated()
+		            )
+	         .sessionManagement( sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+	         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);	             
+	     return http.build();
+	 }
 
 	
 	

@@ -2,24 +2,26 @@ package com.parkngo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.parkngo.dto.JWTAuthResponse;
 import com.parkngo.dto.UserAuthenticationDto;
 import com.parkngo.dto.UserRegistrationDto;
 import com.parkngo.dto.UserRegistrationResponseDto;
+import com.parkngo.exception.EmailOtpNotValidException;
 import com.parkngo.exception.InvalidCredentialsException;
+import com.parkngo.service.MailingServiceException;
+import com.parkngo.service.OtpService;
 import com.parkngo.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -33,11 +35,12 @@ public class UserController {
 	@Value("${STATIC_CONTENT_HOST}")
 	String staticServerHost;
 	
+	@Autowired
+	OtpService otpService;
+
 	@PostMapping("/register")
-	public ResponseEntity<?> userRegistration(@RequestBody @Valid UserRegistrationDto userRegDto){				
+	public ResponseEntity<?> userRegistration(@RequestBody @Valid UserRegistrationDto userRegDto) throws EmailOtpNotValidException{
 		userService.registerUser(userRegDto);
-		
-		System.out.println(userRegDto.getPassword());
 		
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
@@ -45,17 +48,18 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> userAuthentication(@RequestBody @Valid UserAuthenticationDto userAuthDto){
-		System.out.println(userAuthDto.getPassword());
+	public ResponseEntity<?> userAuthentication(@RequestBody @Valid UserAuthenticationDto userAuthDto) throws InvalidCredentialsException{
 		JWTAuthResponse response;
-		try {
-			response = userService.authenticate(userAuthDto);
-			return ResponseEntity.status(HttpStatus.OK)
-					.body(response);
-		} catch (InvalidCredentialsException e) {
-			System.out.println(e);
-			log.error(e.getMessage());
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-		}
+		response = userService.authenticate(userAuthDto);
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(response);
+	}
+	
+	@PostMapping("/otp")
+	public ResponseEntity<?> generateEmailOtp(@RequestParam @Email(message = "invalid email") String email) throws MailingServiceException{
+		Integer otp = otpService.generateOtp();
+		otpService.sendEmail(email, otp);
+		
+        return ResponseEntity.ok("OTP sent to email "+email);	
 	}
 }

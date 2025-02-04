@@ -3,6 +3,8 @@ package com.parkngo.dto;
 import com.parkngo.pojos.User.Role;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -16,6 +18,10 @@ public class UserRegistrationDto {
 	@NotEmpty(message = "Invalid request email id cannot be empty")
 	@Email
 	String email;
+	
+	@Min(100000)
+	@Max(999999)
+	Integer emailOtp;
 	
 	@NotEmpty(message = "Invalid request password cannot be empty")
 	@Size(min = 8, max = 20, message = "Password must be between 8 and 20 characters")

@@ -40,27 +40,30 @@ public class User {
 	@Column(length=100, nullable = false, unique = true)
 	String drivingLiscence;
 	
-	
 	//for soft delete
 	@Column(name = "is_active")
 	Boolean isActive = true;
 	
 	@Enumerated(EnumType.STRING)
-	Role role = Role.END_USER;
+	Role role = Role.CLIENT;
 	
 	@Getter
 	@AllArgsConstructor
-	public static enum Role{
-		END_USER(
-				List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE)),
-        MANAGER(
-        		List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET)),
-        OWNER(
-        		List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS)),
-        ADMIN(
-        		List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS, Authority.VIEW_LOGS));
+	public static enum Role {
+	    CLIENT(
+	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE)
+	    ),
+	    MANAGER(
+	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET)
+	    ),
+	    OWNER(
+	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS)
+	    ),
+	    ADMIN(
+	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS, Authority.VIEW_LOGS)
+	    );
 
-        private List<Authority> authorities;
+	    private List<Authority> authorities;
 	}
 	
 	private static enum Authority{
