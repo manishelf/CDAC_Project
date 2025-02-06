@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
+import axios from 'axios'
 
 import "./AdminEntityDetails.css";
 import SimpleLineChart from "../LineGraph"; // Reuse the line chart component
 
-import { lot_data, occupancy_data } from "../../data/data";
-import SimpleBarChart from "../SimpleBarChart";
+import { fetched_data, occupancy_data } from "../../data/data";
+import SimpleBarChart from "../../components/SimpleBarChart";
 
 export default function AdminEntityDetails() {
   const [tableData, setTableData] = useState([]);
   const [sortDir, setSortDir] = useState({ key: null, direction: "aesc" });
-  const [activeTab, setActiveTab] = useState("table"); // New state for active tab
-
+  const [activeTab, setActiveTab] = useState("table");
+  
   useEffect(() => {
-    setTableData(lot_data.map((lot) => ({ ...lot, isActive: true }))); // Initialize active status
+    setTableData(fetched_data.data.map((data) => ({ ...data, isActive: true })));
   }, []);
 
   const sortData = (key) => {
@@ -30,18 +31,40 @@ export default function AdminEntityDetails() {
   };
 
   // Toggle status function
-  const toggleStatus = (lotId, status) => {
-    setTableData((prevData) =>
-      prevData.map((lot) =>
-        lot.lot_id === lotId ? { ...lot, isActive: status } : lot
-      )
-    );
+  // const toggleStatus = (dataId, status) => {
+  //   setTableData((prevData) =>
+  //     prevData.map((data) =>
+  //       data.data_id === dataId ? { ...data, isActive: status } : data
+  //     )
+  //   );
+  // };
+
+  const toggleStatus = async (userId) => {
+    try {
+      const response = await axios.put(`http://localhost:9443/admin/update-status/${userId}`);
+      
+      if (response.status === 200) {
+        const newData = tableData.map((row)=>{
+          if(row.id === userId) {
+            row.isActive = response.data;
+            return row;
+          }
+          else return row;
+        })
+        setTableData(newData);
+      } else {
+        alert("Failed to update the status. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+      alert("There was an error updating the status. Please try again.");
+    }
   };
 
   // Data transformation for charts
-  const chartData = lot_data.map((item) => ({
-    name: item.lot_name,
-    occupancy: item.lot_size,
+  const chartData = fetched_data.data.map((item) => ({
+    name: item.data_name,
+    occupancy: item.data_size,
   }));
 
   return (
@@ -111,30 +134,29 @@ export default function AdminEntityDetails() {
                 </tr>
               </thead>
               <tbody>
-                {tableData.map((row) => {
+                {tableData.map((row, id) => {
                   const keys = Object.keys(row);
                   return (
-                    <tr
-                      key={row.lot_id}
+                    <tr key={id}
                       title="Click to Edit Record ▞"
                       className="align-middle"
                     >
-                      {keys.map((lot_data) => {
-                        if (Array.isArray(row[lot_data]))
+                      {keys.map((fetched_data) => {
+                        if (Array.isArray(row[fetched_data]))
                           return (
-                            <td key={lot_data}>
+                            <td key={fetched_data}>
                               <ul className="mb-0">
-                                {row[lot_data].map((inner, idx) => (
+                                {row[fetched_data].map((inner, idx) => (
                                   <li key={idx}>{inner}</li>
                                 ))}
                               </ul>
                             </td>
                           );
-                        else if (typeof row[lot_data] === "object")
+                        else if (typeof row[fetched_data] === "object")
                           return (
-                            <td key={lot_data}>
+                            <td key={fetched_data}>
                               <ul className="mb-0">
-                                {Object.entries(row[lot_data]).map(
+                                {Object.entries(row[fetched_data]).map(
                                   (entry, idx) => (
                                     <li key={idx}>{entry.toString()}</li>
                                   )
@@ -142,7 +164,7 @@ export default function AdminEntityDetails() {
                               </ul>
                             </td>
                           );
-                        else return <td key={lot_data}>{row[lot_data]}</td>;
+                        else return <td key={fetched_data}>{row[fetched_data]}</td>;
                       })}
                       {/* Status Column */}
                       <td>
@@ -157,20 +179,11 @@ export default function AdminEntityDetails() {
                       {/* Action Buttons */}
                       <td>
                         <button
-                          className="btn btn-success me-2"
-                          onClick={() => toggleStatus(row.lot_id, true)}
-                          disabled={row.isActive}
-                          style={{width: "100%"}}
+                          className={`btn ${row.isActive ? 'btn-danger' : 'btn-success'}`}
+                          onClick={() => toggleStatus(row.id)}
+                          style={{ width: "100%" }}
                         >
-                          Activate
-                        </button>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => toggleStatus(row.lot_id, false)}
-                          style={{width: "100%"}}
-                          disabled={!row.isActive}
-                        >
-                          Deactivate
+                          {row.isActive ? 'Deactivate' : 'Activate'}
                         </button>
                       </td>
                     </tr>
@@ -186,12 +199,12 @@ export default function AdminEntityDetails() {
         {activeTab === "summary" && (
           <div className="card shadow p-4">
             <h4>Summary</h4>
-            <p>Total Parking Lots: {lot_data.length}</p>
+            <p>Total Parking datas: {fetched_data.length}</p>
             <p>
-              Average Lot Size:{" "}
+              Average data Size:{" "}
               {Math.round(
-                lot_data.reduce((acc, lot) => acc + lot.lot_size, 0) /
-                  lot_data.length
+                fetched_data.reduce((acc, data) => acc + data.data_size, 0) /
+                  fetched_data.length
               )}
             </p>
           </div>
