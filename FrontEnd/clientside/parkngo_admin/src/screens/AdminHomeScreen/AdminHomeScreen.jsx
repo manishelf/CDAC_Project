@@ -14,8 +14,22 @@ import SimpleLineChart from "../../components/LineGraph";
 import StatusItem from "../../components/StatusItem";
 import MetricsItem from "../../components/MetricsItem";
 
+import AdminEntityDetails from "../../components/AdminEntityDetails/AdminEntityDetails";
+
+import { isLoggedIn } from "../auth/auth";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+
 export default function AdminHomeScreen() {
   const upTime = "19:00 12ip1i2";
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+        if (!isLoggedIn()) {
+            navigate('/login');
+        }
+    }, [navigate]);
 
   return (
     <>
@@ -157,6 +171,8 @@ export default function AdminHomeScreen() {
           <SimpleLineChart data={occupancy_data} />
         </div>
       </div>
+      <div className="bg-secondary" style={{height:"1rem"}}></div>
+      <AdminEntityDetails />
     </>
   );
 }

@@ -1,14 +1,17 @@
 import MapWithDirection from "../components/MapWithDirection";
 import Home from './../components/Home/Home';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 import { isLoggedIn } from "./auth/auth";
 
 const HomeScreen = ()  => {
     const navigate = useNavigate();
 
-    if (isLoggedIn()) {
-        navigate('/login');
-    }
+    useEffect(() => {
+      if (!isLoggedIn()) {
+          navigate('/login');
+      }
+  }, [navigate]);
     
     return (
     <div className='row'>

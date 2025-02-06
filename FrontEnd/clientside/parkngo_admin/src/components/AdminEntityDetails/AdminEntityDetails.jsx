@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
 import "./AdminEntityDetails.css";
-import SimpleLineChart from "../../components/LineGraph"; // Reuse the line chart component
+import SimpleLineChart from "../LineGraph"; // Reuse the line chart component
 
 import { lot_data, occupancy_data } from "../../data/data";
-import SimpleBarChart from "../../components/SimpleBarChart";
+import SimpleBarChart from "../SimpleBarChart";
 
 export default function AdminEntityDetails() {
   const [tableData, setTableData] = useState([]);
