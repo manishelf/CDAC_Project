@@ -54,6 +54,8 @@ public class SecurityConfig{
 		             .requestMatchers("/myapps/**").hasAuthority("CLIENT")
 		             .requestMatchers("/v3/api-docs/**").permitAll()
 		             .requestMatchers("/swagger-ui/**").permitAll()
+		             .requestMatchers("/admin/update-status/{userId}").permitAll()
+		             .requestMatchers("/admin/users-list/**").permitAll()
 		             .anyRequest().authenticated()
 		            )
 	         .sessionManagement( sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
