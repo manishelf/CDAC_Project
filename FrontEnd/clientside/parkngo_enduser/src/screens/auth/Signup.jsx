@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { isLoggedIn, setToken } from "./auth";
 import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 import parkImage from '../../res/mainIcon.png';
+import { backend } from "../../config";
 
 const SignUp = () => {
     const [userData, setUserData] = useState({
@@ -88,7 +89,7 @@ const SignUp = () => {
             return;
         }
 
-        axios.post("https://localhost:9443/user/register", userData)
+        axios.post(backend.url+"user/register", userData)
             .then((res) => {
                 console.log(res);
                 if (res.status === 201) {
@@ -137,7 +138,7 @@ const SignUp = () => {
     };
 
     const handleOtpRequest = () => {
-        axios.post("https://localhost:9443/user/otp",
+        axios.post(backend.url+"user/otp",
             null, {
                 params: { email: userData.email }
             }

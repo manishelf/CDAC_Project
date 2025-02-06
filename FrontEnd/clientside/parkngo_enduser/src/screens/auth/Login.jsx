@@ -5,6 +5,7 @@ import { removeToken, setToken } from '../auth/auth';
 import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
 import parkImage from '../../res/mainIcon.png';
 import { isLoggedIn } from './auth';
+import {backend} from '../../config'
 
 const Login = ({logout}) => {
   
@@ -48,7 +49,7 @@ const Login = ({logout}) => {
       return;
     }
 
-    axios.post(`https://localhost:9443/user/login`, userData)
+    axios.post(backend.url+`user/login`, userData)
         .then((res) => { setToken(res.data.token); console.log(res); })
         .catch((error) => { console.error(error); setMessage('Login failed. Check your credentials.'); });
    

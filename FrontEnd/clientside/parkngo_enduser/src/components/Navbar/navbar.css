@@ -10,7 +10,7 @@
 .navBarSection {
   width: 100%;
   background: #2C3E50;
-  padding: 1rem 2rem;
+  padding: 1rem;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -28,7 +28,7 @@ h1 {
 }
 
 h1 .icon {
-  font-size: 2rem;
+  font-size: 5rem;
   color: #F1C40F;
   margin-right: 8px;
 }
@@ -45,11 +45,11 @@ h1 .icon {
 }
 
 .navItem .navLink {
-  text-decoration: none;
   color: #ECF0F1;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.5rem;
   transition: color 0.3s ease;
+  text-decoration: none;
 }
 
 .navItem .navLink:hover {

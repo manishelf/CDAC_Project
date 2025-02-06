@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './screens/auth/Login';
 import SignUp from './screens/auth/Signup';
+import AdminHomeScreen from './screens/AdminHomeScreen/AdminHomeScreen';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<SignUp />} />
         <Route path='/logout' element={<Login logout={true}/>} />
+        <Route path="/manage" element={<AdminHomeScreen />}/>
       </Routes>
       <div className='container-fluid bg-secondary' style={{height: '1rem'}} />
       <Footer />
