@@ -1,41 +1,7 @@
-export const lot_data = [
-  {
-    lot_id: 1,
-    lot_name: "Krushna Parkings",
-    lot_owner: "xyz@sans.com",
-    lot_managers: ["pq@gasa.com"],
-    lot_coords: { lat: "19.0760", long: "72.8777" },
-    lot_zone: 1,
-    lot_size: 100,
-  },
-  {
-    lot_id: 2,
-    lot_name: "Green Valley Parking",
-    lot_owner: "abc@greenvalley.com",
-    lot_managers: ["lm@greenvalley.com", "no@greenvalley.com"],
-    lot_coords: { lat: "28.7041", long: "77.1025" },
-    lot_zone: 2,
-    lot_size: 150,
-  },
-  {
-    lot_id: 3,
-    lot_name: "Sunshine Parking",
-    lot_owner: "sunshine@parking.com",
-    lot_managers: ["uv@sunshine.com"],
-    lot_coords: { lat: "13.0827", long: "80.2707" },
-    lot_zone: 3,
-    lot_size: 200,
-  },
-  {
-    lot_id: 4,
-    lot_name: "Downtown Parking",
-    lot_owner: "downtown@parking.com",
-    lot_managers: ["wx@downtown.com", "yz@downtown.com"],
-    lot_coords: { lat: "22.5726", long: "88.3639" },
-    lot_zone: 4,
-    lot_size: 250,
-  },
-];
+import axios from "axios";
+
+export const fetched_data = await axios.get("http://localhost:9443/admin/users-list");
+
 
 export const occupancy_data = [
   { time: "00:00", occupancy: 4000 },
