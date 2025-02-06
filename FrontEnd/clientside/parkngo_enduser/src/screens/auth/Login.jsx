@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { setToken } from '../utiles/auth';
+import { removeToken, setToken } from '../auth/auth';
 import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
-import parkImage from '../res/mainIcon.png';
+import parkImage from '../../res/mainIcon.png';
+import { isLoggedIn } from './auth';
 
-const Login = () => {
+const Login = ({logout}) => {
+  
+  const navigate = useNavigate();
+
+  if(logout){
+    removeToken();
+  }
+
+  if(isLoggedIn()) {
+    navigate('/');
+  }
+
   const [userData, setUserData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
 

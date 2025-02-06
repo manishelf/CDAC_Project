@@ -2,8 +2,6 @@ import { useEffect } from "react";
 import PaymentRecipt from "../components/PaymentRecipt";
 import html2pdf from 'html2pdf.js'
 import { toast } from "react-toastify";
-import Navbar from "../components/Navbar/Navbar";
-import Footer from "../components/Footer/Footer";
 
 
 export default function PaymentReciptScreen(props){
@@ -18,13 +16,9 @@ export default function PaymentReciptScreen(props){
         }
     );
     return (
-        <>
-        <Navbar/>
         <div className="text-center" >
             <PaymentRecipt />
             <button className="btn btn-primary btn-lg" onClick={printHandler}>Print</button>
         </div>
-        <Footer/>
-        </>
     )
 }

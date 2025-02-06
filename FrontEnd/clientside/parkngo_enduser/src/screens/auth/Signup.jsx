@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-import { setToken } from "../utiles/auth";
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
-import parkImage from '../res/mainIcon.png';
+import { isLoggedIn, setToken } from "../auth/auth";
+import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
+import parkImage from '../../res/mainIcon.png';
 
 const SignUp = () => {
     const [userData, setUserData] = useState({
@@ -20,6 +20,10 @@ const SignUp = () => {
     const [message, setMessage] = useState("");
     const [step, setStep] = useState(0);
     const navigate = useNavigate();
+
+    if(isLoggedIn()) {
+        navigate("/");
+    }
 
     const isValidEmail = (email) => {
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z]{2,}\.com$/;

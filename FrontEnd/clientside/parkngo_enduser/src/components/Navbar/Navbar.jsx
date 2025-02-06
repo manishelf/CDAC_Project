@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./navbar.css";
 import { RiParkingBoxFill } from "react-icons/ri";
+import { isLoggedIn } from "../../screens/auth/auth";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [active, setActive] = useState("navBar");
@@ -16,20 +18,31 @@ const Navbar = () => {
         <div className={active}>
           <ul className="navLists flex">
             <li className="navItem">
-              <a href="#home" className="navLink">
+              <Link to="/home" className="navLink">
                 Home
-              </a>
+              </Link>
             </li>
             <li className="navItem">
-              <a href="#menu" className="navLink">
+              <Link to="#menu" className="navLink">
                 Menu
-              </a>
+              </Link>
             </li>
-            
             <li className="navItem">
-              <a href="#login" className="navLink">
-                Logout
-              </a>
+              {
+                isLoggedIn()?
+                <Link to="/logout" className="navLink">
+                  Logout</Link>
+                  :
+                <div>
+                  <Link to="/login" className="navLink">
+                    Login
+                  </Link>
+                  &nbsp;&nbsp;
+                  <Link to="/register" className="navLink">
+                    Register
+                  </Link>
+                </div>
+              }
             </li>
           </ul>
         </div>

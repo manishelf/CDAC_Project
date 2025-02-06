@@ -10,13 +10,15 @@ const Footer = () => {
           <div className="footer-content">
             <div className="footer-about">
               <h2>About Online Parking</h2>
-              <p>Online Parking helps you find and book parking spaces easily. Our platform offers a seamless experience, allowing you to search for parking spots in real-time, compare prices, and reserve the best option that suits your needs. With a user-friendly interface and a wide range of parking locations, we ensure that you can park your vehicle without any hassle. Whether you're looking for short-term parking, long-term parking, or special event parking, Online Parking has got you covered.</p>
+              <p>
+              Discover the best parking spots in real-time, compare prices, and reserve your space effortlessly. Whether it's short-term, long-term, or special event parking, we've got you covered. Enjoy a hassle-free parking experience with our user-friendly platform.
+              </p>
             </div>
             <div className="footer-contact">
               <h2>Contact Us</h2>
-              <p><FaMapMarkerAlt className="icon" /> Sunbeam infotech</p>
+              <p><FaMapMarkerAlt className="icon" /> Sunbeam infotech Pune</p>
               <p><FaPhone className="icon" /> +91 xxxxx xxxxx</p>
-              <p><FaEnvelope className="icon" />parkngo@gmail.com</p>
+              <p><FaEnvelope className="icon" />noreply.parkngo@gmail.com</p>
             </div>
           </div>
         </div>

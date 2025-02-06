@@ -1,40 +1,28 @@
-import React from "react";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
-import HomeScreen from "./screens/HomeScreen";
-import PaymentConfirmationScreen from "./screens/PaymentConfirmationScreen";
-import PaymentReciptScreen from "./screens/PaymentReciptScreen";
-import UserReviewScreen from "./screens/UserReviewScreen";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from './components/Navbar/Navbar';
+import Footer from './components/Footer/Footer';
+import HomeScreen from './screens/HomeScreen';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './screens/auth/Login';
+import SignUp from './screens/auth/Signup';
 
 function App() {
   return (
-    <>
-      {/* Navigation Bar for Routing */}
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/payment-confirmation">Payment Confirmation</Link> |{" "}
-        <Link to="/payment-receipt">Payment Receipt</Link> |{" "}
-        <Link to="/user-review">User Review</Link>
-      </nav>
-
-      {/* Define Routes */}
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route
-          path="/payment-confirmation"
-          element={<PaymentConfirmationScreen />}
-        />
-        <Route path="/payment-receipt" element={<PaymentReciptScreen />} />
-        <Route path="/user-review" element={<UserReviewScreen />} />
-
-        {/* Redirect any unknown route to HomeScreen */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
-
-      {/* Toast Notifications */}
+    <BrowserRouter>
       <ToastContainer />
-    </>
+      <Navbar />
+      <div className='container-fluid bg-secondary' style={{height: '1rem'}} />
+      <Routes>
+        <Route path='/' element={<HomeScreen />} />
+        <Route path='/home' element={<HomeScreen />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<SignUp />} />
+        <Route path='/logout' element={<Login logout={true}/>} />
+      </Routes>
+      <div className='container-fluid bg-secondary' style={{height: '1rem'}} />
+      <Footer />
+    </BrowserRouter>
   );
 }
 
