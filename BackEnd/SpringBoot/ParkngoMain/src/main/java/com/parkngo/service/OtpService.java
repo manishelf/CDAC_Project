@@ -62,8 +62,7 @@ public class OtpService {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
         
-        System.out.println(response.getBody());
-        
+        if(response.getStatusCode().isError()) throw new MailingServiceException(response.getBody());
         
         
         /* OTP Template
