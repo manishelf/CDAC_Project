@@ -138,11 +138,7 @@ const SignUp = () => {
     };
 
     const handleOtpRequest = () => {
-<<<<<<< HEAD
         axios.post(backend.url+"user/otp",
-=======
-        axios.post("http://localhost:9443/user/otp",
->>>>>>> bc501814eb57ca6a59eb26cb8b01c9f3d02c1829
             null, {
                 params: { email: userData.email }
             }
