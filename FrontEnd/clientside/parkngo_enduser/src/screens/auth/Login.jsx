@@ -48,7 +48,7 @@ const Login = ({logout}) => {
       return;
     }
 
-    axios.post(`https://localhost:9443/user/login`, userData)
+    axios.post(`http://localhost:9443/user/login`, userData)
         .then((res) => { setToken(res.data.token); console.log(res); })
         .catch((error) => { console.error(error); setMessage('Login failed. Check your credentials.'); });
    
