@@ -88,7 +88,7 @@ const SignUp = () => {
             return;
         }
 
-        axios.post("https://localhost:9443/user/register", userData)
+        axios.post("http://localhost:9443/user/register", userData)
             .then((res) => {
                 console.log(res);
                 if (res.status === 201) {
@@ -137,7 +137,7 @@ const SignUp = () => {
     };
 
     const handleOtpRequest = () => {
-        axios.post("https://localhost:9443/user/otp",
+        axios.post("http://localhost:9443/user/otp",
             null, {
                 params: { email: userData.email }
             }
