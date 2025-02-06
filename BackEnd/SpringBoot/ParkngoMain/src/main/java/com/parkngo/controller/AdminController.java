@@ -94,6 +94,6 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.OK).body(userDetails);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found."); 
+        }
     }
-    
 }
