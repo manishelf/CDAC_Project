@@ -25,7 +25,7 @@ public class ParkingLot {
 	Long id;
 	
 	@Column(nullable = false)
-	String name;
+	String address;
 	
 	@OneToMany(cascade = {CascadeType.MERGE , CascadeType.PERSIST})
 	List<User> manager = new ArrayList<>();
