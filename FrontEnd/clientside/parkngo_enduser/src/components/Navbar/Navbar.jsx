@@ -14,7 +14,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('storage', checkLoginStatus);
     };
-  }, []);
+  }, [loginStatus]);
 
   return (
     <section className="navBarSection">

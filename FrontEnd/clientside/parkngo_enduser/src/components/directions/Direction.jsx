@@ -53,27 +53,49 @@ export default function Directions(props) {
     
     if (!isVisible|!leg) return null;
     return (
-        <div className='directions p-0 bg-dark text-white'> 
-        <button className="btn border border-2 float-end shadow-lg text-white" onClick={()=>{setIsVisible(false);}}>x</button>
-        <div className='container'>
-            <h6><u>{selected.summary}</u></h6>
-            <p>
-                {leg.start_address.split(',')[0]} to {leg.end_address.split(',')[0]}
-            </p>
-            <p>Distance: {leg.distance?.text}</p>
-            <p>Duration: {leg.duration?.text}</p>
-        
-            <h2>Other Routes</h2>
-            <ul className='text-center'>
-                {routes.map((route, index) => (
-                <li key={route.summary}>
-                    <button className="btn btn-clear text-white border" onClick={() => setRouteIndex(index)}>
-                    {route.summary}
-                    </button>
-                </li>
-                ))}
-            </ul>
-        </div>
-        </div>
+        <div className="directions p-3 bg-dark text-white rounded shadow-lg">
+      <button
+        className="btn btn-outline-danger float-end rounded-circle shadow"
+        onClick={() => {
+          setIsVisible(false);
+        }}
+        style={{ width: "2.5rem", height: "2.5rem", padding: 0 }}
+      >
+        <span style={{ fontSize: "1.2rem" }}>&times;</span>
+      </button>
+      <div className="container">
+        <h6 className="text-center mb-3">
+          <u>{selected.summary}</u>
+        </h6>
+        <p className="mb-1">
+          <strong>From:</strong> {leg.start_address.split(",")[0]}
+        </p>
+        <p className="mb-1">
+          <strong>To:</strong> {leg.end_address.split(",")[0]}
+        </p>
+        <p className="mb-1">
+          <strong>Distance:</strong> {leg.distance?.text}
+        </p>
+        <p className="mb-3">
+          <strong>Duration:</strong> {leg.duration?.text}
+        </p>
+
+        <h5 className="text-center mt-4">Other Routes</h5>
+        <ul className="list-unstyled text-center">
+          {routes.map((route, index) => (
+            <li key={route.summary} className="mb-2">
+              <button
+                className="btn btn-outline-light"
+                onClick={() => setRouteIndex(index)}
+              >
+                {route.summary}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
     );
 }
+
+    
