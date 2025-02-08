@@ -13,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,12 +29,12 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	
-	@OneToOne(cascade = {CascadeType.MERGE , CascadeType.PERSIST})
+	@ManyToOne(cascade = {CascadeType.MERGE , CascadeType.PERSIST})
 	User user = new User();
 	
 	Double payment;
 	
-	@OneToOne
+	@ManyToOne
 	Section section = new Section();
 	
 	@Column(name = "start_date", nullable = false)
@@ -43,7 +44,7 @@ public class Booking {
 	LocalDateTime endDate;
 	
 	@Enumerated(EnumType.STRING)
-	Status statu = Status.PENDING;
+	Status status = Status.PENDING;
 	
 	public static enum Status{
 		FAILED, REFUNDED, PROCESSED, PENDING

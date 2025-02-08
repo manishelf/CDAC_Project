@@ -1,37 +1,51 @@
 package com.parkngo.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.parkngo.dao.ParkingLotDao;
+import com.parkngo.dao.ZoneDao;
+import com.parkngo.dto.ParkingLotDto;
 import com.parkngo.exception.AddressNotFoundException;
 import com.parkngo.exception.PincodeNotFoundException;
 import com.parkngo.pojos.ParkingLot;
 import com.parkngo.pojos.Zone;
-import com.parkngo.repository.ParkingLotRepository;
-import com.parkngo.repository.ZoneRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import java.util.List;
+
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class ParkingService {
 
     @Autowired
-    private ParkingLotRepository parkingLotRepository;
+    private ParkingLotDao parkingLotRepository;
     
     @Autowired
-    private ZoneRepository zoneRepository;
+    private ZoneDao zoneRepository;
+    
+    @Autowired
+    private ModelMapper modelMapper;
 
-    public List<ParkingLot> findParkingLotsByPincode(Long pincode) throws PincodeNotFoundException {
+    public List<ParkingLotDto> findParkingLotsByPincode(Long pincode) throws PincodeNotFoundException, AddressNotFoundException {
         Zone zone = zoneRepository.findByPincode(pincode);
+        System.out.println(zone);
         if (zone == null || zone.getLots().isEmpty()) {
             throw new PincodeNotFoundException("No parking zone found for the given pincode: " + pincode);
         }
-        return zone.getLots();
+        
+        return zone.getLots().stream().map((lot)->modelMapper.map(lot, ParkingLotDto.class)).collect(Collectors.toList());
     }
 
-    public List<ParkingLot> findParkingLotsByAddress(String address) throws AddressNotFoundException {
+    public List<ParkingLotDto> findParkingLotsByAddress(String address) throws AddressNotFoundException {
         List<ParkingLot> parkingLots = parkingLotRepository.findByAddressContainingIgnoreCase(address);
+        
         if (parkingLots.isEmpty()) {
             throw new AddressNotFoundException("No parking lots found for the given address: " + address);
         }
-        return parkingLots;
+        return parkingLots.stream().map((lot)->modelMapper.map(lot, ParkingLotDto.class)).collect(Collectors.toList());
     }
 }

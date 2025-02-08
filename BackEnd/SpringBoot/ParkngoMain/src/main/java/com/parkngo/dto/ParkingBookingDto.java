@@ -5,23 +5,32 @@ import java.time.LocalDateTime;
 import com.parkngo.pojos.Section;
 
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class ParkingBookingDto {
-
-	@NotEmpty(message = "Invalid request token missing")
-	String JWT;
 	
 	@NotNull(message = "vehicle type missing")
 	Section.VehicleType VehicleType;
 	
+	@NotNull(message="section id required")
+	Long sectionId;
+	
+	@NotNull(message="user id required")
+	Long userId;
+	
+	// date validation causes errors in mapping and transfer
 	@NotNull(message = "start date missing")
-	@PastOrPresent(message = "date out of bound")
+//	@FutureOrPresent(message = "date out of bound")
 	LocalDateTime startDate;
 	
 	@NotNull(message = "end date missing")
-	@FutureOrPresent(message = "date out of bound")
+//	@FutureOrPresent(message = "date out of bound")
 	LocalDateTime endDate;
+	
+	@NotNull(message="payment required")
+	Double payment;
 }

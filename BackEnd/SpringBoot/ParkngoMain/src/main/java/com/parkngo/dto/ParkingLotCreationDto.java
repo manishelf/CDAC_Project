@@ -17,10 +17,7 @@ public class ParkingLotCreationDto {
 	String JWT;
 
 	@NotEmpty(message = "Invalid request name empty")
-	String name;
-	
-	@NotNull(message = "Invalid request tags for lot missing")
-	List<String> tags;
+	String address;
 	
 	@NotNull(message = "Invalid request sections for lot missing")
 	List<Section> sections;

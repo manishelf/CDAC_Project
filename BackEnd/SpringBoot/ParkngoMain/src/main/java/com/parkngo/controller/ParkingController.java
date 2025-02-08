@@ -1,19 +1,28 @@
 package com.parkngo.controller;
 
-import com.parkngo.dto.AddressRequestDto;
-import com.parkngo.dto.PincodeRequestDto;
-import com.parkngo.exception.AddressNotFoundException;
-import com.parkngo.exception.PincodeNotFoundException;
-import com.parkngo.pojos.ParkingLot;
-import com.parkngo.service.ParkingService;
-import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.parkngo.dto.ParkingBookingDto;
+import com.parkngo.dto.ParkingLotDto;
+import com.parkngo.dto.ParkingLotSearchDto;
+import com.parkngo.exception.AddressNotFoundException;
+import com.parkngo.exception.PincodeNotFoundException;
+import com.parkngo.pojos.Booking;
+import com.parkngo.service.BookingService;
+import com.parkngo.service.ParkingService;
+
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/parking")
@@ -23,36 +32,34 @@ public class ParkingController {
     @Autowired
     private ParkingService parkingService;
 
-    @PostMapping("/searchByPincode")
-    public ResponseEntity<?> getParkingLotsByZone(@RequestBody @Valid PincodeRequestDto request) {
-        log.info("Searching parking lots for pincode: {}", request.getPincode());
-
-        try {
-            List<ParkingLot> parkingLots = parkingService.findParkingLotsByPincode(request.getPincode());
+    @Autowired
+    private BookingService bookingService;
+    
+    @PostMapping("/search")
+    public ResponseEntity<?> getParkingLotsByZone(@RequestBody @Valid ParkingLotSearchDto request) throws PincodeNotFoundException, AddressNotFoundException {
+        	
+    	if(request.getPincode()!=null) {
+        	List<ParkingLotDto> parkingLots = parkingService.findParkingLotsByPincode(request.getPincode());
             return ResponseEntity.ok(parkingLots);
-        } catch (PincodeNotFoundException e) {
-            log.error("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            log.error("Unexpected Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
-            
-        }
+    	}else if(request.getAddress()!=null&&request.getAddress()!="") {
+    		List<ParkingLotDto> parkingLots = parkingService.findParkingLotsByAddress(request.getAddress());
+            return ResponseEntity.ok(parkingLots);
+    	}else {
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Either pincode or address required");
+    	}
+        
     }
+   
 
-    @PostMapping("/searchByAddress")
-    public ResponseEntity<?> getParkingLotsByAddress(@RequestBody @Valid AddressRequestDto request) {
-        log.info("Searching parking lots for address: {}", request.getAddress());
-
-        try {
-            List<ParkingLot> parkingLots = parkingService.findParkingLotsByAddress(request.getAddress());
-            return ResponseEntity.ok(parkingLots);
-        } catch (AddressNotFoundException e) {
-            log.error("Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        } catch (Exception e) {
-            log.error("Unexpected Error: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
-        }
+    @PostMapping("/book")
+    public ResponseEntity<Long> bookLater(@RequestBody @Valid ParkingBookingDto bookingDto) {
+        Booking booking = bookingService.book(bookingDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(booking.getId());
+    }
+    
+    @GetMapping("/booking/{id}")
+    public ResponseEntity<Booking> getBookingDetails(@PathVariable Long id) {
+        Booking booking = bookingService.getBookingById(id);
+        return ResponseEntity.ok(booking);
     }
 }

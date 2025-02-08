@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.parkngo.dto.ApiResponse;
 import com.parkngo.dto.JWTAuthResponse;
 import com.parkngo.dto.UserAuthenticationDto;
 import com.parkngo.dto.UserRegistrationDto;
-import com.parkngo.dto.UserRegistrationResponseDto;
 import com.parkngo.exception.EmailOtpNotValidException;
 import com.parkngo.exception.InvalidCredentialsException;
 import com.parkngo.service.MailingServiceException;
@@ -44,7 +44,7 @@ public class UserController {
 		
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
-				.body(new UserRegistrationResponseDto(userRegDto.getEmail()));
+				.body(new ApiResponse());
 	}
 	
 	@PostMapping("/login")

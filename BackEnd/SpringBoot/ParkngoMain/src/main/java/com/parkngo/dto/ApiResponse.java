@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 public class ApiResponse {
 	LocalDateTime timeStamp;
-	ApiResponse(){
+	Object data;
+	public ApiResponse(){
 		this.timeStamp = LocalDateTime.now();
 	}
 }

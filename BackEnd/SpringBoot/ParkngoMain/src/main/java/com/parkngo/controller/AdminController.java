@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.parkngo.dao.ParkingLotDao;
 import com.parkngo.dao.UserDao;
 import com.parkngo.pojos.User;
 import com.parkngo.service.AdminService;
@@ -29,6 +30,9 @@ public class AdminController {
     
     @Autowired
     UserDao userDao;
+    
+    @Autowired
+    ParkingLotDao lotDao;
     
     @Autowired
     AdminService adminService;
@@ -69,7 +73,7 @@ public class AdminController {
     	
     	metrics.put("UserCount", userDao.count());
     	
-//    	metrics.add(lotsDto.count());
+    	metrics.put("LotCount",lotDao.count());
 //    	
 //    	metrics.add(bookingsDto.getRevinue());
 //    	
@@ -93,7 +97,7 @@ public class AdminController {
             List<User> userDetails = adminService.getUserDetails();
             return ResponseEntity.status(HttpStatus.OK).body(userDetails);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found."); 
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Users not found."); 
         }
     }
 }

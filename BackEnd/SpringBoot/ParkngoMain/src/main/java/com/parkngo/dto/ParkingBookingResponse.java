@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ParkingBookingResponse {
+public class ParkingBookingResponse  extends ApiResponse{
 
 	Booking.Status bookingStatus = Booking.Status.PENDING;
 	

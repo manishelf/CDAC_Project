@@ -1,11 +1,12 @@
 package com.parkngo.pojos;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,15 +28,19 @@ public class ParkingLot {
 	@Column(nullable = false)
 	String address;
 	
-	@OneToMany(cascade = {CascadeType.MERGE , CascadeType.PERSIST})
-	List<User> manager = new ArrayList<>();
+	
+	//Error org.hibernate.loader.MultipleBagFetchException: cannot simultaneously fetch multiple bags:
+	//[com.parkngo.pojos.ParkingLot.manager, com.parkngo.pojos.ParkingLot.sections]
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	Set<User> manager = new HashSet<>();
+
+	@OneToMany(mappedBy = "lot")
+	Set<Section> sections = new HashSet<>();
 	
 	@OneToOne(cascade = {CascadeType.MERGE , CascadeType.PERSIST})
 	User owner;
 	
 	@OneToOne
 	Location location = new Location();
-	
-	@OneToMany(mappedBy = "lot")
-	List<Section> sections = new ArrayList<>();
+
 }

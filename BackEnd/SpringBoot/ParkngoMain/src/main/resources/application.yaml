@@ -3,8 +3,8 @@ spring:
     name: parkngo-main-api
   datasource:
     url: jdbc:mysql://localhost:3306/parkngotest?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: D3_87156_Shreyash
-    password: Shreyash9317@
+    username: D3_86801_Manish
+    password: launch
   jpa:
     show-sql: true
     hibernate:
@@ -32,4 +32,4 @@ STATIC_CONTENT_HOST: https://localhost:80/
 
 
 EMAIL_SERVICE_URL: http://localhost:4000/api/v1/
-EMAIL_SERVICE_JWT: be7deb34aaa57c9a47cc5e6a8c63f434:3dc008dcca662dfee42cbbf2a41c7d99d01e3d89548f234d88207ce43bb847b5079bbaa03ff6cff779c1f9c0da722cd86a1a3647da0609cff5b3da6f3b6d2ff17f836a555f71ad35257e5459870814ec4d7c33928bbcc10479909e130b3230ffd5a801d3ad35587b3e51498195b7f0d5e886c052eaae44fb441fe47dd8ca6fde540703b49b65ed5a35c6cd14d9ae4478f51667f1a9ac05a16f8ceff18d93a09fc91c5253baa7c3299e56d690c4934f81
+EMAIL_SERVICE_JWT: 9c05f85d0ce9546558e002bcf164cb9f:9b0912ae310c52280c841eb054aa2540dfbc74ebb329ab8b5efa910293a1c84bf93017768ca24fba4c11499a1c02c3de482ee9e898bdb004961f827d35ff6485c9c95bed480c486f7291d731e9672ea49f9bb0545d8f69b6d4b51245374c2af449c2ce93dc09c3477e87075883e741bfa31c69654a757b14f120207142ce6e22cc54a95ef00385e64fc9f59511b687ed060d86c3c12919a0fa8a27f720762b07150fc3e662a31c53552074ce5f891b95
