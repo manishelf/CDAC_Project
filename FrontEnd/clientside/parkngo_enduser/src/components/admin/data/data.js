@@ -1,8 +1,3 @@
-import axios from 'axios'
-import {backend} from '../../../config'
-
-export const fetched_data = await axios.get(backend.url+"admin/users-list").catch((e)=>{alert(e)});
-
 export const occupancy_data = [
   { time: "00:00", occupancy: 4000 },
   { time: "01:00", occupancy: 3400 },

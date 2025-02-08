@@ -30,15 +30,6 @@
     border-radius: 5px;
   }
   
-  .selectBtn {
-    background: #007bff;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
   .selectBtn:hover {
     background: #0056b3;
   }

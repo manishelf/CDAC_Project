@@ -1,0 +1,133 @@
+/* General form styling (as before) */
+.book-container {
+    padding: 20px;
+  }
+  
+  .booking-form {
+    border: none; /* Remove border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Modern shadow */
+    background-color: #fff; /* White background */
+    padding: 2rem;
+  }
+  
+  label {
+    font-weight: 500; /* Medium font weight */
+    margin-bottom: 0.5rem;
+    color: #495057; /* Dark gray color */
+  }
+  
+  /* Calendar Styling */
+  .react-calendar  {
+    width: 100%;
+    border: none; /* Remove border */
+    border-radius: 10px; /* Rounded corners */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    line-height: 1.5;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  }
+  
+  .react-calendar__navigation {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  .react-calendar__navigation button {
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove border */
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-weight: 600; /* Semi-bold font */
+    cursor: pointer;
+    color: #007bff; /* Primary color */
+    transition: background-color 0.2s ease; /* Smooth transition */
+  }
+  
+  .react-calendar__navigation button:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue hover */
+  }
+  
+  .react-calendar__navigation button:disabled {
+    color: #adb5bd; /* Muted color */
+    cursor: not-allowed;
+  }
+  
+  .react-calendar__month-view__weekdays {
+    text-align: center;
+    font-weight: 500;
+    color: #6c757d; /* Gray color */
+  }
+  
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 0.75rem;
+  }
+  
+  .react-calendar__month-view__days__day {
+    padding: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners for days */
+    transition: background-color 0.2s ease;
+  }
+  
+  .react-calendar__month-view__days__day:hover {
+    background-color: rgba(0, 0, 0, 0.05); /* Light gray hover */
+  }
+  
+  .react-calendar__month-view__days__day--weekend {
+    color: #dc3545; /* Danger color (red) */
+  }
+  
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: #adb5bd; /* Muted color */
+  }
+  
+  .react-calendar__tile--active {
+    background-color: #007bff; /* Primary color */
+    color: #fff;
+  }
+  
+  .react-calendar__tile--active:hover {
+    background-color: #0069d9; /* Darker blue on hover */
+  }
+  
+  /* TimePicker Styling */
+  .react-time-picker {
+    width: 100%;
+    display: inline-flex;
+    border: 1px solid #ced4da;
+    border-radius: 10px; /* Rounded corners */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+  }
+  
+  .react-time-picker__wrapper {
+    display: flex;
+    flex-grow: 1;
+    background-color: #fff;
+    border:none;
+  }
+  
+  .react-time-picker__inputGroup {
+    min-width: auto;
+    flex-grow: 1;
+    padding: 0.75rem;
+  }
+  
+  .react-time-picker__clock {
+    border: none;
+  }
+  
+  .react-time-picker__button {
+    background-color: transparent; /* Transparent background */
+    border: none; /* Remove border */
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #007bff; /* Primary color */
+    transition: background-color 0.2s ease;
+  }
+  
+  .react-time-picker__button:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Light blue hover */
+  }
+  

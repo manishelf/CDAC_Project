@@ -50,7 +50,7 @@ const Login = ({logout}) => {
     }
 
     axios.post(backend.url+`user/login`, userData)
-        .then((res) => { setToken(res.data.token); console.log(res); })
+        .then((res) => { setToken(res.data.token); navigate("/home") })
         .catch((error) => { console.error(error); setMessage('Login failed. Check your credentials.'); });
    
   };
