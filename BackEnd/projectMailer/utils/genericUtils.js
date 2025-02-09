@@ -56,7 +56,7 @@ function decryptToken(encryptedToken){
 
 //Authentication middleware
 const jwtAuthMiddleware = async (request, response, next) => {
-    if(request.url === '/api/v1/register') next()
+    if(request.url === '/api/v1/register' || request.url === '/api') next()
     else{
         let {authorization} = request.headers;
         if(authorization === undefined) response.send(createErrorResponse('missing token'));
