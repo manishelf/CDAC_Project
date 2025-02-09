@@ -1,5 +1,5 @@
 import MapWithDirection from "../components/MapWithDirection";
-import Home from './../components/home/Home';
+import Home from './../components/Home/Home';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { isLoggedIn } from "./auth/auth";
