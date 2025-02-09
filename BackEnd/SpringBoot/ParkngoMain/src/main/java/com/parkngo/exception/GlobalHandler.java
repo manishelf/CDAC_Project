@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.RestClientException;
 
-import com.parkngo.service.MailingServiceException;
-
 import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice

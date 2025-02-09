@@ -1,4 +1,4 @@
-package com.parkngo.service;
+package com.parkngo.exception;
 
 import lombok.Getter;
 

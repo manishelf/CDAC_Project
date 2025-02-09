@@ -17,7 +17,7 @@ import com.parkngo.dto.UserAuthenticationDto;
 import com.parkngo.dto.UserRegistrationDto;
 import com.parkngo.exception.EmailOtpNotValidException;
 import com.parkngo.exception.InvalidCredentialsException;
-import com.parkngo.service.MailingServiceException;
+import com.parkngo.exception.MailingServiceException;
 import com.parkngo.service.OtpService;
 import com.parkngo.service.UserService;
 
