@@ -19,7 +19,7 @@ import AdminEntityDetails from "../../components/admin/AdminEntityDetails/AdminE
 import { isLoggedIn } from "../auth/auth";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../axios";
 import { backend } from "../../config";
 
 export default function AdminHomeScreen() {

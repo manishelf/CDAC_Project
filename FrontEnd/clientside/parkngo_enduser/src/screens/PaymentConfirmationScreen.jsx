@@ -3,7 +3,7 @@ import QRCode from "react-qr-code";
 import PaymentRecipt from "../components/PaymentReceipt";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from '../axios';
 import {backend} from '../config';
 import { toast } from "react-toastify";
 

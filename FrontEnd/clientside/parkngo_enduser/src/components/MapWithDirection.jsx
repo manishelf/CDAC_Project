@@ -2,7 +2,7 @@ import { APIProvider, Map } from '@vis.gl/react-google-maps';
 import Directions from './directions/Direction';
 import SearchBox from './searchWithAutocomplete/SearchBox';
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 import { backend } from '../config';
 
 const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
