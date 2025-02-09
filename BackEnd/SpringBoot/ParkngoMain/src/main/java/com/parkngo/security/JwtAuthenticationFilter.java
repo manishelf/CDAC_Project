@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 			throws ServletException, IOException {
 
 		String authHeader = request.getHeader("Authorization");
-		
+				
 		if(authHeader != null && authHeader.startsWith("Bearer ")) {
 			
 			String jwt = authHeader.substring(7);
@@ -37,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 			String email = jwtUtil.getUserNameFromJwtToken(payloadClaims);
 			
 			List<GrantedAuthority> authorities = jwtUtil.getAuthoritiesFromClaims(payloadClaims);
-
+						
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, null,
 					authorities);
 			

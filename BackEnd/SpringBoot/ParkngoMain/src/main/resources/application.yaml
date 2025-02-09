@@ -3,7 +3,10 @@ spring:
     name: parkngo-main-api
   datasource:
     url: jdbc:mysql://localhost:3306/parkngotest?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+#   url: jdbc:mysql://parkngo-mysql-container:3306/parkngo-spring?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
     username: D3_86801_Manish
+#   username: parkngo-mysql
+#   password: parkngo
     password: launch
   jpa:
     show-sql: true
@@ -27,9 +30,11 @@ server:
   port: 9443
 
 JWT_SECRET_KEY: zpX2kOHr8WdBT0iRoBjdE32uVQcr5dl7yOvRpBjznWZFRl7KpCHdPGPTMmTC6uWs
-EXP_TIMEOUT: 86400000
-STATIC_CONTENT_HOST: https://localhost:80/
+#JWT_SECRET_KEY: ${JWT_SECRET_KEY}
 
+EXP_TIMEOUT: 86400000
 
 EMAIL_SERVICE_URL: http://localhost:4000/api/v1/
+#EMAIL_SERVICE_URL: http://parkngo-backend-node:4000/api/v1/
+#EMAIL_SERVICE_JWT: ${EMAIL_SERVICE_JWT}
 EMAIL_SERVICE_JWT: 9c05f85d0ce9546558e002bcf164cb9f:9b0912ae310c52280c841eb054aa2540dfbc74ebb329ab8b5efa910293a1c84bf93017768ca24fba4c11499a1c02c3de482ee9e898bdb004961f827d35ff6485c9c95bed480c486f7291d731e9672ea49f9bb0545d8f69b6d4b51245374c2af449c2ce93dc09c3477e87075883e741bfa31c69654a757b14f120207142ce6e22cc54a95ef00385e64fc9f59511b687ed060d86c3c12919a0fa8a27f720762b07150fc3e662a31c53552074ce5f891b95

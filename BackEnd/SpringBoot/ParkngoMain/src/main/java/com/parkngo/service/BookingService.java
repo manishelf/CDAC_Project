@@ -1,6 +1,9 @@
 package com.parkngo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.parkngo.dao.BookingDao;
@@ -28,9 +31,20 @@ public class BookingService {
 
     public Booking book(ParkingBookingDto bookingDTO) {
         Booking booking = new Booking();
+        
+        Section section = sectionDao.findById(bookingDTO.getSectionId())
+        		.orElseThrow(()->new RuntimeException("No section with id-"+bookingDTO.getSectionId()));
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        User user = userDao.findById(bookingDTO.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
-        Section section = sectionDao.findById(bookingDTO.getSectionId()).orElseThrow(() -> new RuntimeException("Section not found"));
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new RuntimeException("User is not authenticated"); 
+        }
+
+        String email = (String)authentication.getPrincipal(); 
+
+        User user = userDao.findByEmail(email) 
+                .orElseThrow(() -> new RuntimeException("User not found in database"));
 
         booking.setUser(user);
         booking.setSection(section);

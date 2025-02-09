@@ -19,9 +19,6 @@ public class ParkingBookingDto {
 	@NotNull(message="section id required")
 	Long sectionId;
 	
-	@NotNull(message="user id required")
-	Long userId;
-	
 	// date validation causes errors in mapping and transfer
 	@NotNull(message = "start date missing")
 //	@FutureOrPresent(message = "date out of bound")

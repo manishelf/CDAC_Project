@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
+@EnableMethodSecurity
 @Configuration
 public class SecurityConfig{
 	
@@ -44,19 +46,15 @@ public class SecurityConfig{
 
 	 @Bean
 	 public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
-	     http.cors(cors->cors.disable())
-	         .csrf(csrf->csrf.disable())
-	         .exceptionHandling(handler->handler.authenticationEntryPoint(authEntry))
-	         .authorizeHttpRequests(auth -> 
-	         	auth.requestMatchers("/user/login", "/user/register","/user/otp").permitAll()
-	         		.requestMatchers(HttpMethod.OPTIONS).permitAll()
-	         		.requestMatchers("/parking/book").permitAll()
-		             .requestMatchers("/admin/**").permitAll()
-		             .requestMatchers("/parking/**").permitAll()
-		             .requestMatchers("/v3/api-docs/**").permitAll()
-		             .requestMatchers("/swagger-ui/**").permitAll()
-		             .anyRequest().authenticated()
-		            )
+		 http.csrf(csrf -> csrf.disable())
+		  .exceptionHandling(handler -> handler.authenticationEntryPoint(authEntry))
+		  .authorizeHttpRequests(auth ->
+		        auth.requestMatchers("/user/login", "/user/register", "/user/otp").permitAll()
+		          .requestMatchers(HttpMethod.OPTIONS).permitAll()
+		          .requestMatchers("/v3/api-docs/**").permitAll()
+		          .requestMatchers("/swagger-ui/**").permitAll()
+		          .anyRequest().authenticated()
+		    )
 	         .sessionManagement( sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 	         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);	             
 	     return http.build();

@@ -9,10 +9,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>spring_boot_backend_template</artifactId>
+	<artifactId>spring_boot_backend_parkngo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring_boot_backend_template</name>
-	<description>Spring boot backend with Spring Boot 3.2 JDK 17</description>
+	<name>spring_boot_backend_parkngo</name>
+	<description>Spring boot backend for parkngo online parking service with Spring Boot 3.2 JDK 17</description>
 	<url />
 	<licenses>
 		<license />

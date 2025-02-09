@@ -48,38 +48,39 @@ public class User {
 	Boolean isActive = true;
 	
 	@Enumerated(EnumType.STRING)
-	Role role = Role.CLIENT;
+	Role role = Role.ROLE_CLIENT;
 	
 	@Getter
 	@AllArgsConstructor
 	public static enum Role {
-	    CLIENT(
-	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE)
-	    ),
-	    MANAGER(
-	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET)
-	    ),
-	    OWNER(
-	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS)
-	    ),
-	    ADMIN(
-	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS, Authority.VIEW_LOGS)
-	    );
+	    ROLE_CLIENT, ROLE_MANAGER, ROLE_OWNER, ROLE_ADMIN
+//	    CLIENT(
+//	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE)
+//	    ),
+//	    MANAGER(
+//	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET)
+//	    ),
+//	    OWNER(
+//	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS)
+//	    ),
+//	    ADMIN(
+//	        List.of(Authority.BOOK_PARKING, Authority.CANCEL_BOOKING, Authority.VIEW_BOOKING_HISTORY, Authority.CREATE_SUPPORT_TICKET, Authority.UPDATE_PROFILE, Authority.VIEW_LOT_BOOKINGS, Authority.UPDATE_SUPPORT_TICKET, Authority.MANAGE_USERS, Authority.VIEW_LOGS)
+//	    );
 
-	    private List<Authority> authorities;
+//	    private List<Authority> authorities;
 	}
 	
-	private static enum Authority{
-		BOOK_PARKING, 
-		CANCEL_BOOKING,
-		VIEW_BOOKING_HISTORY,
-		CREATE_SUPPORT_TICKET,
-		UPDATE_PROFILE,
-		VIEW_LOT_BOOKINGS,
-		UPDATE_SUPPORT_TICKET,
-		MANAGE_USERS,
-		VIEW_LOGS,
-	}
+//	public static enum Authority{
+//		BOOK_PARKING, 
+//		CANCEL_BOOKING,
+//		VIEW_BOOKING_HISTORY,
+//		CREATE_SUPPORT_TICKET,
+//		UPDATE_PROFILE,
+//		VIEW_LOT_BOOKINGS,
+//		UPDATE_SUPPORT_TICKET,
+//		MANAGE_USERS,
+//		VIEW_LOGS,
+//	}
 	
 	//logs
 	@CreationTimestamp
