@@ -1,0 +1,17 @@
+const server = {
+    port: 0,
+    accessFilter : ''
+}
+
+const db = {
+    host: '',
+    port: 0,
+    user: '',
+    password: '',
+    database: '',
+}
+
+module.exports = {
+    server,
+    db
+}
