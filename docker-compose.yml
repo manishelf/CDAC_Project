@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  frontend-react:
+    images: parkngo_frontend_react
+    build: 
+      context: ./FrontEnd/clientside/parkngo_enduser
+    ports: 
+      - "80:80"
+    environment:  
+      SPRING_BACKEND_URL: http://spring-boot-app:9443/ 
+    depends_on:  
+      - spring-boot-app
+
+  spring-boot-app:
+    image: parkngo-backend-spring
+    build:
+      context: ./BackEnd/SpringBoot/ParkngoMain
+    ports:
+      - "9443:9443"
+    depends_on:
+      - mysql
+      - parkngo_backend_node
+    environment:
+      MYSQL_HOST: mysql  # The MySQL service name!
+      MYSQL_DATABASE: parkngotest # or parkngo_spring
+      MYSQL_USER: root
+      MYSQL_PASSWORD: launch
+      EMAIL_SERVICE_URL: http://node-app:4000/api/v1/
+
+  node-app:
+    build:
+      context: ./BackEnd/projectMailer
+    image: parkngo-backend-node
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql  # The MySQL service name!
+      DB_NAME: parkngo_mailer_db
+      DB_USER: root
+      DB_PASSWORD: launch
+      PORT: 4000
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: launch
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data: 
