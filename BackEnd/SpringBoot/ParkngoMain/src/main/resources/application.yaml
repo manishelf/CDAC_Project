@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: parkngo-main-api
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${MYSQL_DATABASE:parkngotest}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:D3_86801_Manish}
+    password: ${MYSQL_PASSWORD:launch}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+server:
+  servlet:
+    session:
+      persistent: false
+#  ssl:
+#      key-store: classpath:parkngo.p12
+#      key-store-type: pkcs12
+#      key-store-password: parkNgo
+#      key-password: parkNgo
+#      key-alias: parkngoSSL
+  port: 9443
+
+JWT_SECRET_KEY: zpX2kOHr8WdBT0iRoBjdE32uVQcr5dl7yOvRpBjznWZFRl7KpCHdPGPTMmTC6uWs
+#JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+
+EXP_TIMEOUT: 86400000
+
+EMAIL_SERVICE_URL: http://localhost:4000/api/v1/
+#EMAIL_SERVICE_URL: http://parkngo-backend-node:4000/api/v1/
