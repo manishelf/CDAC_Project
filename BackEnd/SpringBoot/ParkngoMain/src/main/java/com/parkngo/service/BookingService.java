@@ -3,13 +3,13 @@ package com.parkngo.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.parkngo.dao.BookingDao;
 import com.parkngo.dao.SectionDao;
 import com.parkngo.dao.UserDao;
 import com.parkngo.dto.ParkingBookingDto;
+import com.parkngo.exception.UserNotFoundException;
 import com.parkngo.pojos.Booking;
 import com.parkngo.pojos.Section;
 import com.parkngo.pojos.User;
@@ -21,15 +21,15 @@ import jakarta.transaction.Transactional;
 public class BookingService {
 
     @Autowired
-    private UserDao userDao;
-
-    @Autowired
     private SectionDao sectionDao;
 
     @Autowired
     private BookingDao bookingDao;
+    
+    @Autowired
+    UserDao userDao;
 
-    public Booking book(ParkingBookingDto bookingDTO) {
+    public Booking book(ParkingBookingDto bookingDTO) throws UserNotFoundException {
         Booking booking = new Booking();
         
         Section section = sectionDao.findById(bookingDTO.getSectionId())
@@ -40,11 +40,8 @@ public class BookingService {
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new RuntimeException("User is not authenticated"); 
         }
-
-        String email = (String)authentication.getPrincipal(); 
-
-        User user = userDao.findByEmail(email) 
-                .orElseThrow(() -> new RuntimeException("User not found in database"));
+        
+        User user = userDao.findByEmail((String)authentication.getPrincipal()).orElseThrow(()->new UserNotFoundException("No user"));
 
         booking.setUser(user);
         booking.setSection(section);

@@ -18,6 +18,7 @@ import com.parkngo.dto.ParkingLotDto;
 import com.parkngo.dto.ParkingLotSearchDto;
 import com.parkngo.exception.AddressNotFoundException;
 import com.parkngo.exception.PincodeNotFoundException;
+import com.parkngo.exception.UserNotFoundException;
 import com.parkngo.pojos.Booking;
 import com.parkngo.service.BookingService;
 import com.parkngo.service.ParkingService;
@@ -54,7 +55,7 @@ public class ParkingController {
    
 
     @PostMapping("/book")
-    public ResponseEntity<Long> bookLater(@RequestBody @Valid ParkingBookingDto bookingDto) {
+    public ResponseEntity<Long> bookLater(@RequestBody @Valid ParkingBookingDto bookingDto) throws UserNotFoundException {
         Booking booking = bookingService.book(bookingDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(booking.getId());
     }

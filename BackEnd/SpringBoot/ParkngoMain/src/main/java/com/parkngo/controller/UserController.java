@@ -38,11 +38,9 @@ public class UserController {
 
 	@PostMapping("/register")
 	public ResponseEntity<?> userRegistration(@RequestBody @Valid UserRegistrationDto userRegDto) throws EmailOtpNotValidException{
-		userService.registerUser(userRegDto);
-		
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
-				.body(new ApiResponse());
+				.body(userService.registerUser(userRegDto));
 	}
 	
 	@PostMapping("/login")

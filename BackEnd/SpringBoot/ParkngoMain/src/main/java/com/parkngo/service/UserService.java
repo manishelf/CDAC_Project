@@ -48,7 +48,7 @@ public class UserService {
 	@Autowired
 	EmailOTPDao otpDao;
 	
-	public void registerUser(@Valid UserRegistrationDto userRegDto) throws EmailOtpNotValidException {
+	public JWTAuthResponse registerUser(@Valid UserRegistrationDto userRegDto) throws EmailOtpNotValidException {
 		User user = mapper.map(userRegDto, User.class);
 		
 		user.setPassword(encoder.encode(user.getPassword()));
@@ -57,6 +57,9 @@ public class UserService {
 		if(userRegDto.getEmailOtp() == otp) {
 			otpDao.deleteAllByEmail(userRegDto.getEmail());
 			userDao.save(user);
+			String JWT = jwtUtil.generateJwtToken(user);
+			System.out.println("--------------");
+			return new JWTAuthResponse(JWT, user.getRole());
 		}
 		else throw new EmailOtpNotValidException("Invalid otp! please try again");
 	}

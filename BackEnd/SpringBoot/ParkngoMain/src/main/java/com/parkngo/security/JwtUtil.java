@@ -1,5 +1,6 @@
 package com.parkngo.security;
 
+
 import java.security.Key;
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
+
+import com.parkngo.pojos.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -49,6 +52,20 @@ public class JwtUtil {
 						.compact();
 		
 		log.info("generate jwt token " + authentication);
+		return JWT;
+	}
+	
+	public String generateJwtToken(User user) {
+				
+		String JWT = Jwts.builder() 
+						.setSubject((user.getEmail())) 
+						.setIssuedAt(new Date())
+						.setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+						.claim("authorities", user.getRole().toString())
+						.signWith(key, SignatureAlgorithm.HS512) 
+						.compact();
+				
+		log.info("generate jwt token " + user);
 		return JWT;
 	}
 	

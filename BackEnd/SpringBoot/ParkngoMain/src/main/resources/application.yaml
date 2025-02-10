@@ -2,12 +2,9 @@ spring:
   application:
     name: parkngo-main-api
   datasource:
-    url: jdbc:mysql://localhost:3306/parkngotest?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-#   url: jdbc:mysql://parkngo-mysql-container:3306/parkngo-spring?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: D3_86801_Manish
-#   username: parkngo-mysql
-#   password: parkngo
-    password: launch
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${MYSQL_DATABASE:parkngotest}?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USER:D3_86801_Manish}
+    password: ${MYSQL_PASSWORD:launch}
   jpa:
     show-sql: true
     hibernate:
