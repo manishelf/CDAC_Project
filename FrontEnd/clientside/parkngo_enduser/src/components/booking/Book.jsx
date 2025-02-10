@@ -38,7 +38,6 @@ function Book({ onBookingHandler, slot }) {
     endDateTime.setHours(endHour, endMinute);
 
     const bookingData = {
-      userId: 1,
       sectionId: sectionId,
       startDate: startDateTime.toISOString(),
       endDate: endDateTime.toISOString(),

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import axios from '../../axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { removeToken, setToken } from '../auth/auth';
 import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
@@ -50,7 +50,7 @@ const Login = ({logout}) => {
     }
 
     axios.post(backend.url+`user/login`, userData)
-        .then((res) => { setToken(res.data.token); navigate("/home") })
+        .then((res) => {setToken(res.data.jwt); navigate("/home") })
         .catch((error) => { console.error(error); setMessage('Login failed. Check your credentials.'); });
    
   };

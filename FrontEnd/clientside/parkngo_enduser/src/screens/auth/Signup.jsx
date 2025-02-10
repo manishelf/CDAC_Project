@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from '../../axios';
 import { useNavigate } from "react-router-dom";
 import { isLoggedIn, setToken } from "./auth";
 import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
@@ -14,7 +14,7 @@ const SignUp = () => {
         password: "",
         confirmPassword: "",
         drivingLiscence: "",
-        role: "CLIENT",
+        role: "ROLE_CLIENT",
         mobile: "",
     });
 
@@ -91,9 +91,8 @@ const SignUp = () => {
 
         axios.post(backend.url+"user/register", userData)
             .then((res) => {
-                console.log(res);
                 if (res.status === 201) {
-                    setToken(res);
+                    setToken(res.data.jwt);
                     navigate("/");
                 } else {
                     setMessage("SignUp failed. Please try again.");
