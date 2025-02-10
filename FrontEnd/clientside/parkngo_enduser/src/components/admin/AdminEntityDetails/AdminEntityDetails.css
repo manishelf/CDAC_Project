@@ -1,0 +1,10 @@
+.entity-table td:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+.entity-table ul li{
+    list-style-type: none;
+}
+.entity-table ul li::before{
+    content: "└ ◈ ";
+}

@@ -1,0 +1,146 @@
+import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import Directions from './directions/Direction';
+import SearchBox from './searchWithAutocomplete/SearchBox';
+import { useState, useEffect, useCallback } from 'react';
+import axios from '../axios';
+import { backend } from '../config';
+
+const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
+export default function MapWithDirection({ from, to, setLotData }) {
+  const [fromLocation, setFromLocation] = useState('pune');
+  const [toLocation, setToLocation] = useState('pune');
+  const [currentPinCode, setCurrentPinCode] = useState('');
+  const [currentAddress, setCurrentAddress] = useState('');
+
+  // useCallback to prevent unnecessary re-renders and avoid infinite loops
+  const setLotDataWithPinCode = useCallback(
+    (pincode) => {
+      console.log('Searching with pincode:', pincode);
+      if (!pincode) return; // Prevent API call with empty pincode
+
+      axios
+        .post(backend.url + 'parking/search', { pincode: pincode })
+        .then((res) => {
+          console.log('Parking data (pincode):', res.data);
+          setLotData(res.data); 
+        })
+        .catch((err) => {
+          console.error('Error searching parking by pincode:', err);
+        });
+    },
+    [setLotData]
+  );
+
+  const setLotDataWithString = useCallback(
+    (address) => {
+      console.log('Searching with address:', address);
+      if (!address) return; // Prevent API call with empty address
+
+      axios
+        .post(backend.url + 'parking/search', { address: address })
+        .then((res) => {
+          console.log('Parking data (address):', res.data);
+          setLotData(res.data);
+        })
+        .catch((err) => {
+          console.error('Error searching parking by address:', err);
+        });
+    },
+    [setLotData]
+  );
+
+  const getCurrentLocation = useCallback(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          const latlng = { lat: latitude, lng: longitude };
+
+          const geocoder = new window.google.maps.Geocoder();
+          geocoder.geocode({ location: latlng }, (results, status) => {
+            if (status === 'OK') {
+              if (results[0]) {
+                const formattedAddress = results[0].formatted_address;
+                setFromLocation({ lat: latitude, lng: longitude });
+                setCurrentAddress(formattedAddress);
+
+                const addressComponents = results[0].address_components;
+                const pincodeComponent = addressComponents.find(component =>
+                  component.types.includes("postal_code")
+                );
+
+                if (pincodeComponent) {
+                  const pincode = pincodeComponent.long_name;
+                  setCurrentPinCode(pincode);
+                  setLotDataWithPinCode(pincode);
+                } else {
+                  console.warn("Pincode not found in address components");
+                  setLotDataWithString(formattedAddress); // Fallback to address search
+                }
+              } else {
+                console.error('No results found');
+              }
+            } else {
+              console.error('Geocoder failed due to: ' + status);
+            }
+          });
+        },
+        (error) => {
+          console.error("Error getting user's location:", error);
+          if (!(from && fromLocation)) {
+            const enteredLocation = prompt('Please enter your location');
+            if (enteredLocation) {
+              setFromLocation(enteredLocation);
+              setLotDataWithString(enteredLocation);
+            }
+          }
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  }, []);
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, [getCurrentLocation]);
+
+  useEffect(() => {
+    if (currentPinCode) {
+      setLotDataWithPinCode(currentPinCode);
+    }
+  }, [currentPinCode, setLotDataWithPinCode]);
+
+  return (
+    <div
+      className="container border border-3 border-primary g-0"
+      style={{ height: '100%' }}
+    >
+      <APIProvider apiKey={API_KEY}>
+        <Map
+          defaultZoom={10}
+          defaultCenter={{ lat: 22.54992, lng: 0 }}
+          id="gmap"
+          mapId="8c732c82e4ec29d9"
+          disableDefaultUI={true}
+          zoomControl={true}
+          streetViewControl={true}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <SearchBox
+            onPlaceSelect={(d) => {
+              setToLocation(d);
+              setLotDataWithString(d);
+            }}
+          />
+          <Directions
+            key={`${fromLocation}-${toLocation}`}
+            from={fromLocation === '' ? from : fromLocation}
+            to={toLocation === '' ? to : toLocation}
+          />
+        </Map>
+      </APIProvider>
+    </div>
+  );
+}

@@ -1,0 +1,54 @@
+.home {
+    background-color: #f8f9fa;
+  }
+  
+  .containerx {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .parkingList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .parkingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f1f1f1;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .selectBtn:hover {
+    background: #0056b3;
+  }
+  
+  .bookingSection {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .bookBtn {
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .bookBtn:hover {
+    background: #218838;
+  }
+  
