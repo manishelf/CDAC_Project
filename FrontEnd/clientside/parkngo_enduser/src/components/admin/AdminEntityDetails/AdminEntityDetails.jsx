@@ -18,6 +18,7 @@ export default function AdminEntityDetails() {
   useEffect(() => {
         axios.get(backend.url+"admin/users-list")
         .then((res)=>{
+          console.log(res.data);
           setFetchedData(res.data);
           setTableData(res.data.map((data) => ({ ...data, isActive: true })));
         })

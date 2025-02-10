@@ -43,7 +43,6 @@ export default function AdminHomeScreen() {
         setUpTime(res.data);
       }).catch(()=>{});
 
-      console.log(backend.url+"admin/dbstatus")
       axios.get(
         backend.url+"admin/dbstatus"
       ).then((res)=>{
