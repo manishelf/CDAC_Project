@@ -25,4 +25,4 @@ EXPOSE 9443
 # Set the entrypoint to run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
-COPY application.properties /app/application.properties
+COPY application.yml /app/application.yml
