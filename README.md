@@ -12,3 +12,15 @@ project made for finals submission under the cdac course at sunbeam pune
 
 >planner-
 >[manishelf/projects/1/](https://github.com/users/manishelf/projects/1/)
+
+# Documentaion 
+branch wise documentation is available in README of each branch
+
+# Deployment
+this project is docker ready and registered on docker hub
+* [manishelf/cdac-project-main-frontend-react](https://hub.docker.com/repository/docker/manishelf/cdac-project-main-frontend-react)
+*  [manishelf/cdac-project-main-node-app/general](https://hub.docker.com/repository/docker/manishelf/cdac-project-main-node-app/)
+*  [manishelf/cdac-project-main-spring-boot-app/general](https://hub.docker.com/repository/docker/manishelf/cdac-project-main-spring-boot-app/)
+*  [manishelf/cdac-project-main-node-app/general](https://hub.docker.com/repository/docker/manishelf/cdac-project-main-node-app/general)
+
+check it out at https://cdac-project-parkngo.vercel.app/
