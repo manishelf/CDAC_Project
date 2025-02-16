@@ -1,6 +1,13 @@
 # CDAC_Project
 project made for finals submission under the cdac course at sunbeam pune
 
+# Overview
+Parkngo is a online parkning service that allows users to search nearby parking lots and book a parking.
+The project employs industry approved technologies like Spring boot, Nodejs, MySql and ReactJs and REST standards in the backend apis.
+We also integrated the google maps api in the forntend to have dynamic search functionality.
+The project frontend is deployed to vercel and all the services are dockerized and registered to docker-hub.
+Documentation for individal services is available in their own folders.
+
 ## Table of Contents
 - [Backend Architecture](#backend-architecture)
 - [Database Implementation](#database-implementation)
